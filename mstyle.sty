@@ -1,6 +1,9 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{mstyle}[]
 
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amssymb}
 \usepackage{enumerate}
 \usepackage{amsmath}
 \usepackage{color}
@@ -12,7 +15,8 @@
 \graphicspath{ {./images/} }
 
 \newcounter{basicblock}[section]
-\renewcommand{\thebasicblock}{\thesection.\arabic{basicblock}}
+% \renewcommand{\thebasicblock}{\thesection.\arabic{basicblock}}
+\renewcommand{\thebasicblock}{\arabic{basicblock}}
 \newenvironment{block}[1][]
 {\refstepcounter{basicblock}\par\medskip\noindent\textbf{#1~\thebasicblock}\quad}
 { 
@@ -26,19 +30,18 @@
     \setlength{\parsep}{0pt}}
 {\end{enumerate}}
 
-\newcommand{\vect}{\overrightarrow}
 \renewcommand{\implies}{\Rightarrow}
 \let\forallalias\forall
 \renewcommand{\forall}{\forallalias\ }
 \newcommand{\setof}[1]{\{#1\}}
 \newcommand{\prob}[1]{\mathbb{P}\ [#1]}
 \def\code#1{\texttt{#1}}
-\newcommand{\Z}{\mathbb{Z}}
 \newcommand{\ind}{\mathds{1}}
 \newcommand{\st}{\ \$\ }
+\newcommand{\can}[1]{\mathcal{#1}}
+\newcommand{\reduce}{\rightsquigarrow}
 \lstset{
     frame=l,
-    language=Python,
     basicstyle=\fontsize{9}{9}\selectfont\ttfamily,
     aboveskip=3mm,
     belowskip=3mm,
@@ -47,8 +50,6 @@
     numbers=left,
     numberstyle=\tiny,
     keywordstyle=\bfseries,
-    %commentstyle=\color{dkgreen},
-    %stringstyle=\color{mauve},
     breaklines=true,
     breakatwhitespace=true,
     tabsize=4,

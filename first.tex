@@ -1,7 +1,4 @@
 \documentclass[]{marticle}
-\usepackage[utf8]{inputenc}
-\usepackage[italian]{babel}
-\usepackage{amssymb}
 \usepackage{mstyle}
 
 \title{\textbf{\huge Normalizzazione Forte per il Sistema F}}
@@ -10,5 +7,30 @@
 
 \begin{document}
 \maketitle
+
+\begin{block}[Definizione]
+    Un termine $t$ si dice neutrale se \`e in una delle seguenti forme: $x$,
+    $t'U$ o $t'U$, in cui $x$ \`e una variabile, $t'$ \`e un termine e $U$ \`e
+    un tipo.
+\end{block}
+
+\begin{block}[Definizione]
+    Un candidato di riducibilit\`a (o semplicemente candidato) di tipo $U$ \`e
+    un insieme $\can{R}$ di termini di tipo $U$ per cui valgono:
+    \begin{nlist}[CR1]
+        \item Se $t\in\can{R}$ allora $t$ \`e fortemente normalizzabile.
+        \item Se $t\in\can{R}$ e $t'$ \`e un termine ottenuto da una riduzione
+            di $t$, cio\`e $t\reduce t'$, allora $t'\in\can{R}$.
+        \item  Se $t$ \`e neutrale, e per ogni conversione di uno step di $t$ si
+            ottiene un termine $t'\in\can{R}$, allora anche $t\in\can{R}$.
+    \end{nlist}
+\end{block}
+
+\begin{block}[Definizione]
+    Se $\can{R}$ e $\can{S}$ sono candidati dei rispettivi tipi $U$ e $V$, si
+    definisce l'insieme $\can{R}\rightarrow\can{S}$ come l'insieme dei termini
+    di tipo $U\rightarrow V$ per cui per ogni termine $u\in\can{R}$ si ha che
+    $tu\in\can{S}$.
+\end{block}
 
 \end{document}
