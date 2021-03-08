@@ -27,10 +27,41 @@
 \end{block}
 
 \begin{block}[Definizione]
-    Se $\can{R}$ e $\can{S}$ sono candidati dei rispettivi tipi $U$ e $V$, si
-    definisce l'insieme $\can{R}\rightarrow\can{S}$ come l'insieme dei termini
-    di tipo $U\rightarrow V$ per cui per ogni termine $u\in\can{R}$ si ha che
-    $tu\in\can{S}$.
+    Dato un termine $t$, si definisce $\nu(t)$ come la massimo numero di step
+    di conversione necessari a portare $t$ in forma normale. In particolare
+    $\nu(t)=\infty$ se e solo se $t$ non \`e fortemente riducibile.
 \end{block}
+
+\begin{block}[Definizione]
+    Se $\can{R}$ e $\can{S}$ sono insiemi di termini di tipo rispettivamente $U$
+    e $V$, si definisce l'insieme $\can{R}\rightarrow\can{S}$ come l'insieme dei
+    termini di tipo $U\rightarrow V$ per cui per ogni termine $u\in\can{R}$ si
+    ha che $tu\in\can{S}$.
+\end{block}
+
+\begin{block} [Lemma]
+    Se $\can{R}$ e $\can{S}$ sono candidati per i tipi $U$ e $V$, allora
+    $\can{R}\rightarrow\can{S}$ \`e candidato di tipo $U\rightarrow V$.
+\end{block}
+\begin{proof}
+    Per mostrare (CR1) prendiamo $t\in\can{R}\rightarrow\can{S}$ e una variabile
+    $x$ di tipo $U$. Poich\'e le variabili sono sia normali che che neutrali,
+    $x\in \can{R}$ e quindi $tx\in\can{S}$. Inoltre $\nu(t)<\nu(tx)$, e quindi
+    siccome $tx$ \`e fortemente normalizzabile, anche $t$ lo \`e.
+
+    Per (CR2),se $t\reduce t'$, per ogni $u \in \can{R}$ si ha che $tu\reduce
+    t'u$. Usando la (CR2) su $\can{S}$, si ottiene che $t'u\in\can{S}$. Allora
+    $t'\can{R}\rightarrow\can{S}$.
+
+    Infine consideriamo $t$ neutrale di tipo $U\rightarrow V$ per cui per tutte
+    le conversioni di uno step $t\reduce t'$ si ha che $t' \in
+    \can{R}\rightarrow\can{S}$. Sia $u\in\can{R}$, e per induzione su $\nu(u)$
+    dimostriamo che $tu$ si riduce in uno step a termini in $\can{S}$. Infatti
+    poich\'e $t$ \`e normale, $tu$ si pu\`o ridurre solo a $t'u$ o a $tu'$ per
+    opportuni termini $t'$ e $u'$. Ma il primo appartiene a $\can{S}$ perch\`e
+    $t'\in\can{R}\rightarrow\can{S}$, e il secondo ci appartiene per ipotesi
+    induttiva in quanto $\nu(u')<\nu(u)$. Per (CR3) su $\can{S}$ allora
+    $tu\in\can{S}$. 
+\end{proof}
 
 \end{document}
