@@ -42,7 +42,6 @@
 \begin{block} [Lemma]
     Se $\can{R}$ e $\can{S}$ sono candidati per i tipi $U$ e $V$, allora
     $\can{R}\rightarrow\can{S}$ \`e candidato di tipo $U\rightarrow V$.
-\end{block}
 \begin{proof}
     Per mostrare (CR1) prendiamo $t\in\can{R}\rightarrow\can{S}$ e una variabile
     $x$ di tipo $U$. Poich\'e le variabili sono sia normali che che neutrali,
@@ -63,6 +62,7 @@
     induttiva in quanto $\nu(u')<\nu(u)$. Per (CR3) su $\can{S}$ allora
     $tu\in\can{S}$. 
 \end{proof}
+\end{block}
 
 \newcommand{\subrx}{\sub{\underline{\can{R}}}{\underline{X}}}
 \begin{block} [Definizione]
@@ -86,7 +86,6 @@
 \begin{block} [Lemma]
     $\red{T}\subrx$ \`e un candidato di riducibilit\`a di tipo
     $\sub{\underline{U}}{\underline{X}}$.
-\end{block}
 \begin{proof}
     Lo facciamo per induzione sulla complessit\`a del tipo $T$. Il caso in cui
     $T$ \`e una variabile individuale, il teorema \`e una tautologia. Il caso in
@@ -110,10 +109,10 @@
     forma $tV\reduce t'V$. Usando l'ipotesi induttiva allora anche $tV$ \`e
     riducibile parametrico, e quindi si ha la tesi.
 \end{proof}
+\end{block}
 
 \begin{block} [Lemmma]
     $\red{T\sub{V}{Y}} = \red{T}\subrx \sub{\red{V}\subrx}{Y}$.
-\end{block}
 \begin{proof}
     Come prima, facciamo un'induzione sulla complessit\`a del tipo $T$. Per
     comodit\`a, usiamo l'abbreviazione $A=\red{V}\subrx$.
@@ -151,12 +150,12 @@
     Infine il caso in cui $T=\Pi Y.W$ \`e semplice perch\`e $Y$ non occorre
     libera in $T$.
 \end{proof}
+\end{block}
 
 \begin{block} [Lemma]
     Se per ogni tipo $V$ e per ogni candidato di riducibilit\`a $\can{S}$ per
     $V$ vale che $w\sub{V}{Y}\in\red{W}\subrx\sub{\can{S}}{Y}$, allora $\Lambda
     Y. w\in\red{\Pi Y.W}\subrx$.
-\end{block}
 \begin{proof}
     Dimostriamo per induzione su $\nu(w)$ che tutte le conversioni in uno step
     di $(\Lambda Y.w)V$ sono in $\red{W} \subrx\sub{\can{S}}{Y}$. Una
@@ -167,17 +166,33 @@
 
     Allora la dimstrazione si conclude per (CR3).
 \end{proof}
+\end{block}
 
 \begin{block} [Lemma]
     Se $t\in \red{\Pi Y.W}\subrx$, allora $tV\in \red{W\sub{V}{Y}}\subrx$ per
     ogni tipo $V$.
-\end{block}
 \begin{proof}
     Per la definizione di $\red{\Pi Y.W}$, per ogni candidato $\can{S}$ per $V$
     vale che $tV\in \red{W}\subrx\sub{\can{S}}{Y}$. Allora vale anche per
     $\can{S} = \red{V}\subrx$ e la tesi segue per il lemma XXX.
     % @todo sistemare il riferimento
 \end{proof}
+\end{block}
+
+\begin{block} [Lemma]
+    Se per ogni $u\in \red{U}\subrx$ vale che $v\sub{u}{x} \in \red{V}\subrx$,
+    allora $\lambda x^U.v\in \red{U\rightarrow V}\subrx$.
+\begin{proof}
+    Dimostriamo per induzione su $\nu(u)+\nu(v)$ che tutte le conversioni di
+    $(\lambda x^U.v)u$ sono riducibili parametrici. Infatti tale termine si
+    converte in $(\lambda x^U.v)u'$, con $u'$ conversione di $u$, oppure in
+    $(\lambda x^U.v')u$ con $v'$ conversione di $v$, oppure in $v\sub{u}{x}$. I
+    primi due casi si risolvono con l'ipotesi induttiva, il terzo con l'ipotesi
+    del lemma.
+
+    Infine il teorema si dimostra per la propriet\`a (CR3).
+\end{proof}
+\end{block}
 
 \begin{block} [Definizione]
     Un termine $t$ di tipo $T$ \`e riducibile se \`e in
@@ -196,5 +211,38 @@
     U_n\sub{\underline{V}}{\underline{X}}$ presi nei rispettivi
     $\red{U_i}\subrx$. Allora $t\sub{\underline{V}}{\underline{X}}
     \sub{\underline{u}}{\underline{x}} \in \red{T}\subrx$.
+\newcommand{\subvx}{\sub{\underline{V}}{\underline{X}}}
+\newcommand{\subut}{\sub{\underline{u}}{\underline{x}}}
+\begin{proof}
+    Per induzione sulla complessit\`a di $t$. Distinguiamo allora i seguenti
+    casi:
+    \begin{nlist}[i]
+        \item $t=x_i$. Questo caso \`e una tautologia.
+        \item $t=wv$, con $w$ di tipo $W\rightarrow T$ e $v$ di tipo $W$. Per
+            ipostesi induttiva vale che $w\subvx\subut\in \red{W \rightarrow
+            T}\subrx$ e che $v\subvx\subut \in \red{W}\subrx$. In questo caso la
+            tesi segue dalla definizione di $\red{W\rightarrow T}$.
+        \item $t=wS$. Questo caso \`e una diretta conseguenza del lemma XXX
+            sull'istanziazione. 
+            % @todo
+        \item $t=\Lambda Z. Y$. Questo discende dal lemma XXX sulla
+            generalizzazione.
+        \item $t=\lambda y^P.w$. Questo caso si fa con il lemma XXX sui tipi
+            freccia.
+    \end{nlist}
+\end{proof}
 \end{block}
+
+\begin{block} [Proposizione]
+    Tutti i termini del sistema F sono riducibili.
+\begin{proof}
+    Basta usare la proposizione precedente e prendere $\can{R}_i=\can{SN}_i$ e
+    $u_i=x_i$.
+\end{proof}
+\end{block}
+
+\begin{block} [Teorema]
+    Tutti i termini del sistema F sono fortemente normalizzabili.
+\end{block}
+
 \end{document}
