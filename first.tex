@@ -29,7 +29,7 @@
 \begin{block}[Definizione]
     Dato un termine $t$, si definisce $\nu(t)$ come la massimo numero di step
     di conversione necessari a portare $t$ in forma normale. In particolare
-    $\nu(t)=\infty$ se e solo se $t$ non \`e fortemente riducibile.
+    $\nu(t)=\infty$ se e solo se $t$ non \`e fortemente normalizzabile.
 \end{block}
 
 \begin{block}[Definizione]
@@ -64,4 +64,137 @@
     $tu\in\can{S}$. 
 \end{proof}
 
+\newcommand{\subrx}{\sub{\underline{\can{R}}}{\underline{X}}}
+\begin{block} [Definizione]
+    Sia $T[\underline{X}]$ un tipo con variabili libere in $\underline{X}$. Sia
+    $\underline{U}$ un vettore di tipi della stessa lunghezza e siano $\can{R}$
+    dei rispettivi candidati. Possiamo allora definire l'insieme
+    $\red{T}\subrx$ di termini riducibili parametrici di tipo
+    $\sub{\underline{U}}{\underline{X}}$ nel modo seguente:
+    \begin{nlist} [1]
+        \item  Se $T=X_i$ per qualche indice $i$, allora
+            $\red{T}\subrx=\can{R}_i$.
+        \item Se $T=V\rightarrow U$, allora $\red{T}\subrx = \red{V}\subrx
+            \rightarrow \red{W}\subrx$.
+        \item Se $T=\Pi Y.W$, allora $\red{T}\subrx$ \`e l'insieme dei termini
+            $t$ di tipo $\sub{\underline{U}}{\underline{X}}$ tali che per ogni
+            tipo $V$ e per ogni candidato $\can{S}$ di tale tipo vale che $tV
+            \in \red{W}\subrx\sub{\can{S}}{Y}$.
+    \end{nlist}
+\end{block}
+
+\begin{block} [Lemma]
+    $\red{T}\subrx$ \`e un candidato di riducibilit\`a di tipo
+    $\sub{\underline{U}}{\underline{X}}$.
+\end{block}
+\begin{proof}
+    Lo facciamo per induzione sulla complessit\`a del tipo $T$. Il caso in cui
+    $T$ \`e una variabile individuale, il teorema \`e una tautologia. Il caso in
+    cui $T=V\rightarrow W$ lo abbiamo gi\`a fatto. Manca solo il caso in cui
+    $T=\Pi Y.W$. 
+
+    Verifichiamo (CR1). Sia $t\in \red{T}\subrx$, $V$ un tipo e $\can{S}$ un suo
+    candidato. Allora $tV \in \red{W}\subrx\sub{\can{S}}{Y}$ per definizione.
+    Usando l'ipotesi induttiva sul tipo $W$ si ha che $tV$ \`e fortemente
+    normalizzabile. Ma vale anche che $\nu(t)<\nu(tV)$. Quindi anche $t$ \`e
+    fortemente normalizzabile. 
+
+    Per (CR2), supponiamo di avere $t\reduce t'$ con uno step di conversione.
+    Allora, $tV\reduce t'V$, per cui $t'V \in \red{W}\subrx\sub{\can{S}}{Y}$ e
+    quindi $t'\in \red{T}\subrx$.
+
+    Infine, per (CR3), consideriamo $t$ un qualunque termine di tipo $T$
+    neutrale. Supponiamo che per ogni $t'$ ottenuto dalla conversione di $t$ in
+    un singolo step si abbia $t'$ riducibile parametrico. Allora per ogni tipo
+    $V$ e relativo condidato $\can{S}$, le uniche conversioni di $tV$ sono della
+    forma $tV\reduce t'V$. Usando l'ipotesi induttiva allora anche $tV$ \`e
+    riducibile parametrico, e quindi si ha la tesi.
+\end{proof}
+
+\begin{block} [Lemmma]
+    $\red{T\sub{V}{Y}} = \red{T}\subrx \sub{\red{V}\subrx}{Y}$.
+\end{block}
+\begin{proof}
+    Come prima, facciamo un'induzione sulla complessit\`a del tipo $T$. Per
+    comodit\`a, usiamo l'abbreviazione $A=\red{V}\subrx$.
+
+    Iniziamo con il caso in cui $T=Z$ \`e una variabile individuale diversa da
+    $Y$. Allora vale che 
+    \[
+        \red{T\sub{V}{Y}}\subrx = \red{Z}\subrx = \red{Z}\subrx\sub{A}{Y}.
+    \]
+
+    Se invece $T=Y$ si ha che
+    \[
+        \red{T\sub{V}{Y}}\subrx = \red{V}\subrx = \red{Y}\subrx\sub{
+            \sub{V}\subrx}{Y}.
+    \]
+
+    Consideriamo ora il caso in cui $T=U\rightarrow W$. Vale che
+    \begin{align*}
+        \red{T\sub{V}{Y}}\subrx = 
+        &\red{U\sub{V}{Y}\rightarrow W\sub{V}{Y}}\subrx =  \\
+        &\red{U\sub{V}{Y}}\subrx \rightarrow \red{W\sub{V}{Y}}\subrx= \\
+        &\red{U}\subrx\sub{A}{Y} \rightarrow\red{W}\subrx\sub{A}{Y} = \\
+        &\red{U\rightarrow W}\subrx\sub{A}{Y}.
+    \end{align*}
+
+    Sia $Z$ come prima e svolgiamo il caso $T=\Pi Z. W$. Per definizione,
+    $\red{\Pi Z. W\sub{V}{Y}}\subrx$ \`e l'insieme di tutti i termini $t$ per
+    cui per ogni tipo $U$ e relativo candidato $\can{S}$ vale che
+    \[
+        tU\in \red{W\sub{V}{Y}}\subrx\sub{\can{S}}{Z} = 
+        \red{W}\subrx\sub{\can{S}}{Z}\sub{A}{Y}.
+    \]
+    Dunque si ottiene la tesi per la definizione di $\red{\Pi Z.W}$.
+
+    Infine il caso in cui $T=\Pi Y.W$ \`e semplice perch\`e $Y$ non occorre
+    libera in $T$.
+\end{proof}
+
+\begin{block} [Lemma]
+    Se per ogni tipo $V$ e per ogni candidato di riducibilit\`a $\can{S}$ per
+    $V$ vale che $w\sub{V}{Y}\in\red{W}\subrx\sub{\can{S}}{Y}$, allora $\Lambda
+    Y. w\in\red{\Pi Y.W}\subrx$.
+\end{block}
+\begin{proof}
+    Dimostriamo per induzione su $\nu(w)$ che tutte le conversioni in uno step
+    di $(\Lambda Y.w)V$ sono in $\red{W} \subrx\sub{\can{S}}{Y}$. Una
+    conversione di tali conversioni possono essere soltanto di due forme.  La
+    prima \`e $(\Lambda Y.w')V$, con $w'$ una conversione di $w$. Ma allora
+    $\nu(w')<\nu(w)$ e si usa l'ipotesi induttiva. La seconda forma \`e del tipo
+    $w\sub{V}{Y}$, e questa \`e riducibile parametrico per ipotesi del lemma. 
+
+    Allora la dimstrazione si conclude per (CR3).
+\end{proof}
+
+\begin{block} [Lemma]
+    Se $t\in \red{\Pi Y.W}\subrx$, allora $tV\in \red{W\sub{V}{Y}}\subrx$ per
+    ogni tipo $V$.
+\end{block}
+\begin{proof}
+    Per la definizione di $\red{\Pi Y.W}$, per ogni candidato $\can{S}$ per $V$
+    vale che $tV\in \red{W}\subrx\sub{\can{S}}{Y}$. Allora vale anche per
+    $\can{S} = \red{V}\subrx$ e la tesi segue per il lemma XXX.
+    % @todo sistemare il riferimento
+\end{proof}
+
+\begin{block} [Definizione]
+    Un termine $t$ di tipo $T$ \`e riducibile se \`e in
+    $\red{T}\sub{\underline{\can{SN}}}{\underline{X}}$ dove $X_1,\dots,X_m$ sono
+    le variabili libere di $T$ e $\underline{\can{SN}}_i$ \`e l'insieme dei
+    termini fortemente normalizzabili di tipo $X_i$.
+\end{block}
+
+\begin{block} [Proposizione]
+    Sia $t$ un termine di tipo $T$ le cui variabili libere sono $x_1, \dots,
+    x_n$ di tipo rispettivamente $U_1, \dots, U_n$. Supponiamo che le variabili
+    libere dei tipi $T$ e di tutti gli $U_i$ siano $X_1, \dots, X_m$. Siano
+    $\can{R}_1, \dots, \can{R}_m$ candidati di riducibilit\`a per dei tipi $V_1,
+    \dots, V_m$ e siano inoltre $u_1, \dots, u_n$ termini di tipo
+    $U_1\sub{\underline{V}}{\underline{X}}, \dots
+    U_n\sub{\underline{V}}{\underline{X}}$ presi nei rispettivi
+    $\red{U_i}\subrx$. Allora $t\sub{\underline{V}}{\underline{X}}
+    \sub{\underline{u}}{\underline{x}} \in \red{T}\subrx$.
+\end{block}
 \end{document}
