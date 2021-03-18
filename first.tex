@@ -10,7 +10,7 @@
 
 \begin{block}[Definizione]
     Un termine $t$ si dice neutrale se \`e in una delle seguenti forme: $x$,
-    $t'U$ o $t'U$, in cui $x$ \`e una variabile, $t'$ \`e un termine e $U$ \`e
+    $vu$ o $vU$, in cui $x$ \`e una variabile, $v$ e $u$ sonod termini e $U$ \`e
     un tipo.
 \end{block}
 
@@ -70,7 +70,7 @@
     $\underline{U}$ un vettore di tipi della stessa lunghezza e siano $\can{R}$
     dei rispettivi candidati. Possiamo allora definire l'insieme
     $\red{T}\subrx$ di termini riducibili parametrici di tipo
-    $\sub{\underline{U}}{\underline{X}}$ nel modo seguente:
+    $T\sub{\underline{U}}{\underline{X}}$ nel modo seguente:
     \begin{nlist} [1]
         \item  Se $T=X_i$ per qualche indice $i$, allora
             $\red{T}\subrx=\can{R}_i$.
@@ -85,7 +85,7 @@
 
 \begin{block} [Lemma]
     $\red{T}\subrx$ \`e un candidato di riducibilit\`a di tipo
-    $\sub{\underline{U}}{\underline{X}}$.
+    $T\sub{\underline{U}}{\underline{X}}$.
 \begin{proof}
     Lo facciamo per induzione sulla complessit\`a del tipo $T$. Il caso in cui
     $T$ \`e una variabile individuale, il teorema \`e una tautologia. Il caso in
@@ -112,7 +112,9 @@
 \end{block}
 
 \begin{block} [Lemmma]
-    $\red{T\sub{V}{Y}} = \red{T}\subrx \sub{\red{V}\subrx}{Y}$.
+    Sia $T$ un tipo con variabili libere $Y$ e $\underline{X}$ e $V$ un tipo.
+    Siano $\underline{\can{R}}$ candidati per $\underline{X}$. Allora vale che
+    $\red{T\sub{V}{Y}}\subrx= \red{T}\subrx \sub{\red{V}\subrx}{Y}$.
 \begin{proof}
     Come prima, facciamo un'induzione sulla complessit\`a del tipo $T$. Per
     comodit\`a, usiamo l'abbreviazione $A=\red{V}\subrx$.
