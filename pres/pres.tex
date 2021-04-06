@@ -1,0 +1,378 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{nicematrix}
+\usetheme{Copenhagen}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[many]{tcolorbox}
+\definecolor{myblue1}{RGB}{129, 47, 51}
+\definecolor{myblue2}{RGB}{129, 47, 51}
+\definecolor{myblue3}{RGB}{129, 47, 51}
+\definecolor{myblue4}{RGB}{129, 47, 51}
+% \definecolor{myblue2}{RGB}{129, 47, 51}{112, 94, 120}
+% \definecolor{myblue3}{RGB}{129, 47, 51}
+% \definecolor{myblue4}{RGB}{129, 47, 51}
+
+\setbeamercolor*{structure}{fg=myblue1,bg=blue}
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=white,bg=structure.fg!75!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
+\setbeamercolor*{palette quaternary}{fg=black,bg=white}
+
+\setbeamercolor*{item projected}{fg=red,bg=myblue3!80}
+\setbeamercolor*{block title example}{fg=white,bg=myblue4}
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+
+\makeatletter
+\defbeamertemplate*{frametitle}{mydefault}[1][left]
+{
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \nointerlineskip%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+  \begin{tcolorbox}[
+  enhanced,
+  outer arc=0pt,
+  arc=0pt,
+  boxrule=0pt,
+  top=4pt,
+  bottom=3pt,
+  enlarge left by=-\beamer@leftmargin,
+  enlarge right by=-\beamer@rightmargin,
+  width=\paperwidth,
+  height=1cm,
+  nobeforeafter,
+  interior style={
+    left color=myblue2,
+    right color=myblue2
+    },
+  % shadow={0mm}{-0.4mm}{0mm}{black!60,opacity=0.6},    
+  % shadow={0mm}{-0.8mm}{0mm}{black!40,opacity=0.4},    
+  ]
+      \usebeamerfont{frametitle}\usebeamercolor[fg]{white}%
+    \vbox{}\vskip-1ex%
+    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+    \insertframetitle\par%
+    {%
+      \ifx\insertframesubtitle\@empty%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip-1ex%
+    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+  \end{tcolorbox}%
+}
+\defbeamertemplate*{footline}{mysplit theme}
+{%
+  \leavevmode%
+  \hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle\hfill
+    \insertframenumber/\inserttotalframenumber\hspace*{0.5em}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+\setbeamertemplate{itemize items}[circle]
+% /* Color Theme Swatches in RGBA */
+% .evening-on-the-beach-1-rgba { color: rgba(242, 253, 175, 1); }
+% .evening-on-the-beach-2-rgba { color: rgba(253, 163, 66, 1); }
+% .evening-on-the-beach-3-rgba { color: rgba(112, 93, 119, 1); }
+% .evening-on-the-beach-4-rgba { color: rgba(165, 170, 163, 1); }
+% .evening-on-the-beach-5-rgba { color: rgba(128, 47, 51, 1); }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\renewcommand{\l}{\lambda}
+\renewcommand{\L}{\Lambda}
+\newcommand{\conv}{\rightsquigarrow}
+\newcommand{\ar}{\rightarrow}
+
+\title[Lambda calcolo]{Lambda calcolo del Secondo Ordine}
+\author{Alessio Marchetti}
+\date{}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+    \frametitle{Il $\lambda$-calcolo} I $\lambda$-termini sono parole
+    sull'alfabeto costituito da variabili $x_0, x_1, \dots$, dall'astrattore
+    $\lambda$ e dalle parentesi $(,)$. 
+\\~\
+
+    Definiamo induttivamente il loro insieme $\Lambda$ come:
+    \begin{itemize}
+        \item $x_i \in \Lambda$ per tutte le variabili $x_i$.
+        \item $t\in \Lambda\ \Rightarrow\ (\lambda x_i.t)\in\Lambda$ per tutte
+            le variabili $x_i$.
+        \item $t,u\in \Lambda\ \Rightarrow\ (tu)\in \Lambda$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Semplificare la notazione}
+    L'astrazione si associa a destra:
+    \[
+        \lambda x_1\cdots x_n.t = \lambda x_1. \cdots \lambda x_n.t = (\lambda
+        x_1.(\lambda x_2.\cdots (\lambda x_n.(t))\cdots)
+    \]
+    \\~\
+
+    L'applicazione si associa a sinistra:
+    \[
+        t_1\cdots t_n = (\cdots(t_1)\cdots t_n) 
+    \]
+    \\~\
+    
+    Un sottotermine di $t$ \`e un qualunque termine $u$ utilizzato nella
+    costruzione induttiva di $t$. 
+
+    Esempio: $xy$ \`e un sottotermine di $\lambda x. xyz$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Riduzione}
+    Un termine $t$ si converte a un termine $t'$ se sono nella forma
+    \[
+        t = (\lambda x. u)v \qquad t' = u[v/x]
+    \]
+    dove l'espressione $u[v/x]$ indica la sostituzione di $v$ nella variabile
+    $u$. Si dice che $t'$ \`e una conversione di $t$.
+    \\~\
+
+    Un termine $u$ si riduce a un termine $u'$ se esiste una successione di
+    passi $u = u_1 = \cdots = u_n = u'$ in cui ogni $u_{i+1}$ \`e ottenuto
+    sostituendo un sottotermine di $u_i$ con una sua conversione. In questo caso
+    si scrive $u \conv u'$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Esempio di conversione}
+    \begin{align*}
+        (\l x.xx)(\l y.y)z \conv (\l y.y)(\l y.y)z 
+        \conv (\l y.y)z \conv z.
+    \end{align*}
+    \\~\
+
+    $z$ non pu\`o essere ulteriormente ridotto, si dice che \`e in forma
+    normale.
+    \\~\
+
+    \[
+        \Omega = (\l x.xx)(\l x.xx) \conv (\l x.xx)(\l x.xx) \conv\cdots
+    \]
+    $\Omega$ non ha una forma normale.
+\end{frame}
+
+\begin{frame}
+    \frametitle{I numeri interi}
+
+    Si possono rappresentare i numeri interi con termini del tipo
+    \[
+        \bar{n} = \l s. \l z. \underbrace{s ( s ( \cdots (s}_{n\text{
+            ripetizioni}} (z))\cdots )).
+    \]
+    \\~\
+    $\bar{n}$ \`e il funzionale che compone $n$ volte la funzione data in input.
+    \[
+        \bar{3} f x \conv f(f(f(x))) = f^3x
+    \]
+    \\~\
+
+    Questi numerali sono in forma normale.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Funzioni rappresentabili}
+
+    Un lambda termine $E$ rappresenta un una funzione parziale ${f\colon
+    \mathbb{N}\rightarrow \mathbb{N}\cup \{\bot\} }$ se per ogni intero $n$
+    \[
+        E\bar{n}\conv \overline{f(n)}
+    \]
+    quando $f(n)$ \`e definito.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Alcuni esempi} 
+
+    \[
+        A = \l p. \l q. \l f. \l x. (pf)(qfx)
+    \]
+    \begin{align*}
+        A \bar{3} \bar{2} \conv \l f. \l x. (\bar{3}f)(\bar{2}fx)
+        \conv \l f. \l x. f^3(f^2x) = \bar{5}.
+    \end{align*}
+    \\~\
+
+    \[
+        M = \l p. \l q. \l f. \l x. q(pf)x
+    \]
+    \begin{align*}
+        M \bar{3} \bar{2} \conv \l f. \l x. \bar{2} (\bar{3}f)x
+        \conv \l f. \l x. (\bar{3}f)(\bar{3}f)x \conv \l f. \l x.f^3f^3x =
+        \bar{6}.
+    \end{align*}
+    \\~\
+
+    \[
+        E = \l p. \l q. \l f. \l x. qpfx
+    \]
+    \begin{align*}
+        E \bar{3} \bar{2} \conv \l f. \l x. \bar{2} \bar{3}fx
+        \conv \l f. \l x. \bar{3}\bar{3}fx \conv \l f. \l x. \bar{3}^3 fx =
+        \bar{9}.
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Condizionali, punto fisso, e cicli while}
+    Le funzioni rappresentabili sono esattamente le ricorsive.
+    \\~\
+    Non saprei se farla o meno.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Due riduzioni ``patologiche''}
+    Un termine che non diventa pi\`u semplice:
+    \[
+        \omega_3\omega_3 = (\l x. xxx)(\l x. xxx) \conv (\l x. xxx)(\l x.
+        xxx)(\l x. xxx) \conv \cdots
+    \]
+    \\~\
+    
+    Un termine normalizzante ma non fortemente normalizzante:
+    \[
+        (\l x. y)(\omega_3\omega_3) \conv y
+    \]
+    \[
+        (\l x. y)(\omega_3\omega_3) \conv (\l x. y)(\omega_3\omega_3\omega_3)
+        \conv \cdots
+    \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{Lambda calcolo tipato semplice (1)}
+    Idea: aggiungere vincoli sul come applicare un termine ad un altro.
+    \\~\
+    
+    Si definiscono induttivamente i tipi come:
+    \begin{itemize}
+        \item I tipi variabile $U_1, U_2, \dots$ sono tipi.
+        \item Se $U$ e $V$ sono tipi $(U\ar V)$ \`e un tipo.
+    \\~\
+    \end{itemize}
+
+    Per comodit\`a $\ar$ si associa a destra:
+    \[
+        U_1\ar U_2\ar \cdots \ar U_n = (U_1 \ar ( U_2 \ar ( \cdots \ar (U_n)
+        \cdots ))).
+    \]
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Lambda calcolo tipato semplice (2)}
+    
+    I termini si definiscono come:
+    \begin{itemize}
+        \item Le variabili di tipo $U$ sono $x_1, x_2, \dots$ per ogni tipo $U$.
+        \item Se $x$ \`e una variabile di tipo $U$ e $t$ \`e un termine di tipo
+            $V$, allora $\l x. t$ \`e un termine di tipo $U\ar V$.
+        \item Se $f$ \`e un termine di tipo $U\ar V$ e $t$ \`e un termine di
+            tipo $U$, allora $ft$ \`e un termine di tipo $V$.
+    \\~\
+    \end{itemize}
+
+    Per indicare che un termine $t$ \`e di tipo $U$ si scrive anche $t^U$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Numerali}
+    Sia $U$ un tipo. Si definiscono i numerali come i termini
+    \[
+        \bar{n} = \l s^{U\ar U}. \l z^{U}. \underbrace{s ( s ( \cdots (s}_{n\text{
+            ripetizioni}} (z))\cdots )).
+    \]
+    \\~\
+    La definizione \`e uguale alla precedente, ma con le variabili tipate.
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Funzioni rappresentabili}
+
+    Sia $I$ il tipo $(U\ar U)\ar (U\ar U)$.
+    Somma e moltiplicazione come definite prima si possono tipare:
+    \[
+        A = \l p^I. \l q^I. \l f^{U\ar U}. \l x^U. (pf)(qfx)
+    \]
+    \[
+            M = \l p^I. \l q^I. \l f^{U\ar U}. \l x^U. q(pf)x
+    \]
+    \\~\
+    
+    L'esponenziazione, che era stata precedente definita come
+    \[
+        E = \l p. \l q. \l f. \l x. qpfx
+    \]
+    non si pu\`o tipare. Le funzioni rappresentabili in questo calcolo sono
+    esattamente i polinomi definiti a tratti.
+\end{frame}
+
+\begin{frame} 
+    \frametitle{Lambda calcolo del Secondo Ordine (1)}
+    Si definiscono induttivamente i tipi come:
+    \begin{itemize}
+        \item I tipi variabile $U_1, U_2, \dots$ sono tipi.
+        \item Se $U$ e $V$ sono tipi $(U\ar V)$ \`e un tipo.
+        \item Se $X$ \`e un tipo variabile e $U$ \`e un tipo, allora $(\Pi X.U)$
+            \`e un tipo.
+    \\~\
+    \end{itemize}
+\end{frame} 
+
+\begin{frame} 
+    \frametitle{Lambda calcolo del Secondo Ordine (2)}
+    I termini si definiscono come:
+    \begin{itemize}
+        \item Le variabili di tipo $U$ sono $x_1, x_2, \dots$ per ogni tipo $U$.
+        \item Se $x$ \`e una variabile di tipo $U$ e $t$ \`e un termine di tipo
+            $V$, allora $\l x. t$ \`e un termine di tipo $U\ar V$.
+        \item Se $f$ \`e un termine di tipo $U\ar V$ e $t$ \`e un termine di
+            tipo $U$, allora $ft$ \`e un termine di tipo $V$.
+        \item Se $t$ \`e un termine di tipo $\Pi X. U$ e $V$ \`e un tipo, allora
+            $tV$ \`e un termine di tipo $U[V/X]$.
+        \item Se $t$ \`e un termine di tipo $U$ e $X$ \`e una variabile tipo che
+            non compare libera nei tipi delle variabili libere di $t$, allora
+            $\L X. t$ \`e un termine di tipo $\Pi X. U$.
+    \end{itemize}
+\end{frame} 
+
+\begin{frame}
+    \frametitle{Numerali}
+    Definiamo il tipo intero
+    \[
+        N = \Pi X. (X\ar X)\ar (X\ar X).
+    \]
+    I numerali hanno la forma
+    \[
+        \bar{n} = \L X. \l f^{X\ar X}. \l x^X. f^nx.
+    \]
+\end{frame}
+\end{document}
