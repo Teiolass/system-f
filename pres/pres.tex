@@ -26,7 +26,6 @@
 \setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!50!black}
 \setbeamercolor*{palette quaternary}{fg=black,bg=white}
 
-\setbeamercolor*{item projected}{fg=red,bg=myblue3!80}
 \setbeamercolor*{block title example}{fg=white,bg=myblue4}
 
 \setbeamertemplate{blocks}[rounded][shadow=false]
@@ -86,6 +85,8 @@
 }
 \makeatother
 \setbeamertemplate{itemize items}[circle]
+\setbeamercolor{enumerate item}{fg=black}
+\setbeamertemplate{enumerate items}[default]
 % /* Color Theme Swatches in RGBA */
 % .evening-on-the-beach-1-rgba { color: rgba(242, 253, 175, 1); }
 % .evening-on-the-beach-2-rgba { color: rgba(253, 163, 66, 1); }
@@ -99,6 +100,7 @@
 \renewcommand{\L}{\Lambda}
 \newcommand{\conv}{\rightsquigarrow}
 \newcommand{\ar}{\rightarrow}
+\newcommand{\can}{\mathcal}
 
 \title[Lambda calcolo]{Lambda calcolo del Secondo Ordine}
 \author{Alessio Marchetti}
@@ -374,5 +376,128 @@
     \[
         \bar{n} = \L X. \l f^{X\ar X}. \l x^X. f^nx.
     \]
+\end{frame}
+
+\begin{frame}
+    \frametitle{L'esponenziale}
+    In questo caso si pu\`o definire l'esponenziale:
+    \[
+        E = \l p^N. \l q^N \L X. \l f^{X\ar X}. \l x^X. q(X\ar X) (pX) fx. 
+    \]
+    \begin{align*}
+        E\bar{2}\bar{3} \conv &\L X. \l f^{X\ar X}. \l x^X. \bar{3}(X\ar X)
+            (\bar{2}X) f \conv \\
+        &\L X. \l f^{X\ar X}. \l x^X. (\l g^{(X\ar X)\ar (X\ar X)}. \l y^{X\ar X}
+            . g^3 y) (\bar{2}X) fx \conv \\
+        &\L X. \l f^{X\ar X}. \l x^X.  (\bar{2}X)^3 fx \conv \\
+        &\L X. \l f^{X\ar X}.  \l x^X. (\l g^{X\ar X}.\l y^X. g^2 y)^3 fx \conv
+            \\
+        &\L X. \l f^{X\ar X}. \l x^X. (\l g^{X\ar X}.\l y^X. g^2 y)^2 f^2 x \conv
+            \\
+        &\L X. \l f^{X\ar X}. \l x^X. (\l g^{X\ar X}.\l y^X. g^2 y) f^4 x \conv
+            \\
+        &\L X. \l f^{X\ar X}. \l x^X. f^8 x \conv \bar{8}
+    \end{align*}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Normalizzazione forte}
+    Un calcolo \`e fortemente normalizzante quando tutti i suoi termini sono
+    fortemente normalizzanti, ovvero ogni percorso di riduzione porta a una
+    forma normale.
+    \\~\
+
+    Il lambda calcolo tipato semplice e tipato al secondo ordine sono fortemente
+    normalizzanti.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Normalizzazione forte per il tipato semplice}
+    Definiamo la riducibilit\`a:
+    \begin{itemize}
+    \item I riducibili di tipo variabile $U$ sono i termini di tipo $U$
+        fortemente normalizzanti. 
+    \item I riducibili di tipo $U\ar V$, per $U$, $V$ tipi qualunque, sono i
+        termini $f$ di tipo $U\ar V$ tali che per ogni $t$ riducibile di tipo
+            $U$, $ft$ \`e riducibile di tipo $V$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Propriet\`a dei riducibili}
+    \begin{enumerate}
+        \item I riducibili sono fortemente normalizzanti.
+        \item Se $t$ \`e riducibile e $t\conv u$, allora anche $u$ \`e
+            riducibile.
+        \item Sia $t$ una variabile oppure un termine nella forma $uv$. Se ogni
+            riduzione di $t$ in uno step porta a un termine riducibile, allora
+            $t$ \`e riducibile.
+        \\~\
+    \end{enumerate}
+    Si dimostra per induzione sulla complessit\`a dei termini che tutti i
+    termini sono riducibili.
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Un tentativo di riadattamento}
+    Si vuole provare a estendere il concetto di riducibilit\`a anche per i
+    termini del secondo ordine.
+    \\~\
+
+    ``Un termine $t$ di tipo $\Pi X. U$ \`e riducibile se per ogni tipo $V$,
+    $tV$ \`e riducibile di tipo $U[V/X]$.''
+    \\~\
+
+    Definizione impredicativa: per esempio $V = \Pi X. U$.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Candidati di riducibilit\`a}
+    Un candidato di riducibilit\`a per un tipo $U$ \`e un insieme $\can{R}$ per
+    cui valgono:
+    \begin{enumerate}
+        \item Se $t\in \can{R}$, allora $t$ \`e fortemente normalizzante.
+        \item Se $t\in \can{R}$ e $t\conv u$, allora $u\in\can{R}$.
+        \item Sia $t$ un termine di tipo $U$ che sia una variabile oppure
+            un'applicazione nella forma $uv$ o $uU$. Se ogni conversione in un
+            passo di $t$ porta a un termine in $\can{R}$, allora $t\in\can{R}$.
+    \end{enumerate}
+\end{frame}
+
+\newcommand{\red}{\text{RED}}
+\newcommand{\ronx}{[\underline{\can{R}}/\underline{X}]}
+
+\begin{frame}
+    \frametitle{Riducibilit\`a parametrica}
+    Sia $T$ un tipo con variabili tipo libere in $\underline{X}$.
+
+    Siano $\underline{U}$ dei tipi e $\underline{\can{R}}$ rispettivi candidati.
+    \\~\
+
+    Definiamo i riducibili parametrici $\red_T\ronx$ di tipo $T[\underline{U}/
+    \underline{X}]$ come:
+    \begin{itemize}
+        \item Se $T=X_i$, allora $\red_T\ronx = \can{R}_i$.
+        \item Se $T=V\ar W$, allora $f\in\red_T\ronx$ se per ogni
+            $t\in\red_V\ronx$, vale che $ft\in\red_W\ronx$.
+        \item Se $T=\Pi Y.V$, allora $t\in\red_T\ronx$ se per ogni tipo $W$ e
+            per ogni candidato $\can{S}$ per $W$ vale che $tW\in\red_{V[W/Y]}
+            [\underline{\can{R}}/\underline{X}, \can{S}/Y]$.
+    \\~\
+    \end{itemize}
+    
+    I riducibili parametrici sono candidati di riducibilit\`a.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Normalizzazione per il secondo ordine}
+    A questo punto si possono definire i riducibili di tipo $T$ come i termini
+    in $\red_T[\underline{\can{SN}}/\underline{X}]$, dove gli $\can{SN}_i$ sono
+    i termini fortemente normalizzanti di tipo $X_i$.
+    \\~\
+
+    Si dimostra poi che tutti i termini sono riducibili, e quindi fortemente
+    normalizzanti.
 \end{frame}
 \end{document}
