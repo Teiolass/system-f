@@ -164,7 +164,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Esempio di conversione}
+    \frametitle{Esempio di Riduzione}
     \begin{align*}
         (\l x.xx)(\l y.y)z \conv (\l y.y)(\l y.y)z 
         \conv (\l y.y)z \conv z.
@@ -205,9 +205,9 @@
     Un lambda termine $E$ rappresenta un una funzione parziale ${f\colon
     \mathbb{N}\rightarrow \mathbb{N}\cup \{\bot\} }$ se per ogni intero $n$
     \[
-        E\bar{n}\conv \overline{f(n)}
+        E\bar{n}\conv \overline{m}
     \]
-    quando $f(n)$ \`e definito.
+    se e solo se $f(n)=m$.
 \end{frame}
 
 \begin{frame}
