@@ -1,0 +1,561 @@
+\documentclass[]{marticle}
+\usepackage{mstyle}
+
+\title{\textbf{\huge Il Sistema F}}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+\section{Introduzione}
+
+Il $\l$-calcolo \`e un sistema formale sviluppato negli anni '30 da Alonzo
+Church. Lo scopo originario era quello di fondare la matematica, e non \`e stato
+raggiunto in quanto si rivel\`o inconsistente, come dimostrato da Kleen e Rosser
+nel 1936. Un sottoinsieme del sistema si \`e comunque sviluppato per la sua
+capacit\`a di esprimere computazioni mediante astrazione su variabili e
+sostituzione. Lo studio del $\l$-calcolo \`e dunque lo studio di entit\`a dette
+$\l$-termini che svologono allo stesso tempo il ruolo di programmi e di dati su
+cui i programmi lavorano. Sui termini si andr\`a a considerare una relazione di
+ordine, detta riduzione, che rappresenta l'esecuzione dei programmi. All'interno
+del $\l$-calcolo, con opportune codifiche \`e possibile rappresentare i numeri
+naturali e le funzioni calcolabili. Poich\`e l'insieme delle funzioni
+calcolabili totali non \`e ricorsivamente enumerabile esistono dei termini la
+cui computazione termina (diremo che non sono normalizzanti).
+
+Il $\l$-calcolo tipato \`e una variante del ad ogni termine \`e associata
+un'entit\`a sintattica detta tipo. Esso ha origine nei lavori di Haskell Curry
+(1934) e di Church (1940).  La riduzione in questo caso \`e ridefinita
+aggiungendo vincoli sul come \`e possibile comporre i termini in base al loro
+tipo, e in particolare rende chiara la distinzione tra dati e programmi. Come
+conseguenza si pu\`o dimostrare che questa variante ha la propriet\`a di
+normalizzazione, ovvero tutte le computazioni terminano e tutti i termini sono
+normalizzanti. I tipi sono studiati anche in ambito informatico per la
+verifica in modo automatico della presenza di alcuni errori che dovrebbero
+essere altrimenti cercati a mano dal programmatore.
+
+In questa tesi ci occuperemo di una variante del calcolo detta sistema F, anche
+nota come $\l$-calcolo polimorfico o $\l$-calcolo del secondo ordine. Essa \`e
+stata sviluppata dal logico Jean-Yves Girard (1972) e dall'informatico John
+Charles Reynolds (1974). Il sistema F \`e essenzialmente una variante del
+$\l$-calcolo tipato in cui viene aggiunta una quantificazione universale sui
+tipi.
+
+Anche per il sistema F vale la propriet\`a di normalizzazione. Troveremo dunque
+che le funzioni rappresentabili nel sistema F sono un sottoinsieme delle
+funzioni calcolabili totali, e ne daremo una caratterizzazione pi\`u precisa:
+esse sono esattamente le funzioni di cui l'aritmetica di Heyting del secondo
+ordine dimostra la totalit\`a.  Mostreremo quindi un esempio di funzione non
+rappresentabile nel sistema F e dedurremo dunque la consistenza dell'aritmetica
+di Peano del secondo ordine a partire dal risultato di normalizzazione.
+
+Metteremo inoltre tale risultato in confronto con un risultato equivalente su un
+altra variante del $\l$-calcolo, detta sistem T di G\"odel, per cui vale
+ugualmente la propriet\`a di normalizzazione. Nel sistema T infatti le funzioni
+rappresentabili sono esattamente quelle che l'aritmetica di Heyting del primo
+ordine dimostra essere totali.
+
+\section{Il $\lambda$-calcolo non tipato}
+
+Il $\l$-calcolo \`e un sistema formale per descrivere delle computazioni.
+[\dots]
+
+In questo documento ci occuperemo di studiare alcune propriet\`a di diversi tipi
+di $\lambda$-calcoli. Iniziamo dunque definendo gli elementi fondamentali del
+$\lambda$-calcolo pi\`u semplice, ovvero quello non tipato.
+
+\begin{block}[Definizione]
+    I termini si definiscono induttivamente \dots
+\end{block}
+
+L'idea intuitiva di questi termini \`e quella che un termine del tipo $\l x.t$
+corrisponde a un programma con input $x$ e corpo $t$. Inoltre un'applicazione
+della forma $tv$ rappresenta l'output di un programma $t$ quando viene eseguito
+con input $v$. Un fatto interessante da notare \`e che i termini sono al
+contempo programmi e dati.
+
+\begin{block}[Definizione]
+Dato un termine $t$, i sottotermini sono tutti i termini che appaiono nella
+costruzione induttiva di $t$.
+\end{block}
+
+In un termine distinguiamo le occorrenze di ciascuna variabile tra occorrenze
+libere e legate. Un'occorrenza di una variabile $x$ si dice legata se appare in
+un sottotermine della forma $\lambda x. t$. In modo pi\`u preciso diamo anche la
+definizione induttiva:
+
+\begin{block}[Definizione]
+    Dato un termine $t$, l'insieme delle variabili libere di $t$ $\vl(t)$ \dots
+
+    Una variabile non libera si dice legata.
+\end{block}
+
+Nel seguito considereremo i termini modulo il rinominare le variabili legate.
+Questo corrisponde al fatto che in un programma \`e possibile rinominare i
+parametri formali delle funzioni (modificando consistentemente le loro
+occorrenze nei corpi di tali funzioni).
+
+\begin{block}[Definizione]
+    L'alpha equivalenza \`e \dots
+
+    Indichiamo i termini modulo l'equivalenza con $\Lambda$.
+\end{block}
+
+In tutto il documento lavoreremo solo con rappresentanti delle classi di $\L$,
+identificando i loro rappresentanti con esse.
+
+Con qualche accortezza per evitare la cattura delle variabili si pu\`o definire
+la sostituzione.
+
+\begin{block}[Definizione]
+    Se $u$ e $v$ sono termini e $x$ \`e una variabile tale che \dots, allora
+    $u \sub{v}{x}$ \dots
+\end{block}
+
+A questo punto possiamo introdurre una relazione fondamentale sui termini del
+calcolo, ovvero la conversione.
+
+\begin{block}[Definizione]
+    Dati due termini $u$ e $v$, si dice che $u$ si converte a $v$ e scriverermo
+    $u \conv_C v$, se $u$ e nella forma \dots
+
+    Si dice che $u$ si converte a $v$ se esistono $n$ termini $u_1, \dots, u_n$
+    con $u_1 = u$ e $u_n = v$ tali che $u_1 \conv_C u_2 \conv_C \dots \conv_C
+    u_n$. In tal caso scriveremo $u\conv v$.
+\end{block}
+
+Notiamo che la definizione dice essenzialmente che $\conv$ \`e la chiusura
+transitiva di $\conv_C$. Tali nozioni di conversione e riduzione sono chiamati
+in letteratura anche $\beta$-conversione e $\beta$-riduzione.
+
+L'idea di conversione corrisponde all'esecuzione di un passo del programma
+corrispondente al termine che viene convertito. Notiamo per\`o che volendo
+ridurre un termine, la successione delle conversioni non \`e univocamente
+determinata, come nel termine $((\l x .xx)y)((\l x.x)z)$.
+
+Facciamo ora due esempi importanti di riduzione.
+
+\begin{block}[Esempio]
+    \begin{gather*}
+        (\l f . \l x . f(fx))(\l y. yy) \conv_C  \\
+        \l x. (\l y. yy)((\l y.yy) x) \conv_C \\
+        \l x .(\l y. yy)(xx) \conv_C \\
+        \l x. xxxx.
+    \end{gather*}
+\end{block}
+
+\begin{block}[Esempio]
+    \begin{gather*}
+        \Omega = (\l x.xx)(\l x.xx) \conv_C \\ 
+        (\l x.xx)(\l x.xx) \conv_C \\
+        \dots
+    \end{gather*}
+\end{block}
+
+Notiamo che il primo esempio finisce con un termine che non pu\`o essere
+ulteriormente convertito, mentre nel secondo la successione di conversioni \`e
+infinita. Questa distinzione \`e importante e conduce alle seguenti definizioni.
+
+\begin{block}[Definizione]
+    Un termine si dice in forma normale se non pu\`o essere convertito. Un
+    termine si dice normalizzante se pu\`o essere convertito a un termine in
+    forma normale.
+\end{block}
+
+Esistono comunque termini che pur essendo normalizzanti ammettono una
+successione infinita di conversioni:
+
+\begin{block}[Esempio]
+    \begin{gather*}
+        (\l x . \l y. y)\Omega z \conv_C z
+    \end{gather*}
+    ma convertendo ad ogni passo il termine $\Omega$ (si veda la sua definizione
+    nell'esempio precedente), si ottiene che:
+    \begin{gather*}
+        (\l x . \l y. y)\Omega z \conv_C \\ 
+        (\l x . \l y. y)\Omega z \conv_C \\
+        \dots
+    \end{gather*}
+\end{block}
+
+\`E allora utile introdurre le seguenti nozioni:
+\begin{block}[Definizione]
+    Dato un termine $t$ si definisce $\nu(t)$ il massimo numero di conversioni
+    necessarie per portare $t$ in forma normale, ossia
+    \begin{gather*}
+        \nu (t) = \sup \setof { n \st
+            \exists u_1, \dots, u_n \text{ per cui } \\
+            t \conv_C u_1 \conv_C \dots
+            \conv_C u_n \text{ e $u_n$ \`e in forma normale}
+        }.
+    \end{gather*}
+
+    Un termine $t$ si dice fortemente normalizzante se $\nu(t) < \infty$.
+\end{block}
+
+Si osservi che se un termine \`e fortemente normalizzante allora \`e anche
+normalizzante, e non pu\`o essere convertito un numero infinito di volte.
+
+\deb{Convertendo sempre la redex pi\`u a sinistra si ottiene comunque sempre una
+forma normale.}
+
+Un'importante propriet\`a di cui gode la riduzione \`e detta propriet\`a di
+Church-Rosser, che in particolare implica l'unicit\`a del termine in forma
+normale a cui si converte un termine normalizzante.
+
+\begin{block}[Teorema]
+    Sia $t$ un termine. Se $u$ e $v$ sono termini per cui $t\conv u$ e $t\conv
+    v$, allora esiste un quarto termine $w$ tale che $u\conv w$ e $v\conv w$.
+    \deb{Disegno del diamante.}
+\end{block}
+
+\deb{Nella dimostrazione del teorema serve mostrare che sono rappresentabili
+alcune funzioni base. In ogni caso \`e utile mettere un esempio di: somma,
+prodotto, esponenziazione, predecessore?, uguaglianza?}
+
+
+\subsection{Rappresentabilit\`a nel $\lambda$-calcolo non tipato}
+
+Tra i termini del $\l$-calcolo ne possiamo individuare alcuni per metterli in
+corrispondenza con i numeri naturali.
+
+\begin{block}[Definizione]
+    Dato un numero naturale $n$ definiamo il corrispondente numerale
+    $\overline{n}$ come il termine
+    \dots
+\end{block}
+
+In particolare $\overline{n}$ \`e un termine che presa una funzione $f$, la
+compone con se stessa $n$ volte. Osserviamo che inoltre i numerali sono termini
+in forma normale, dunque per Church-Rosser sono anche termini distinti anche
+modulo la $\beta$-equivalenza.
+
+\begin{block}[Definizione]
+    Data una funzione $\phi\colon \N \rightarrow \N$, si dice che un termine
+    $t$ rappresenta $\phi$ se per ogni coppia di naturali $m$ e $n$ tali che
+    $\phi(n)=m$ si ha che $t\overline{n}\conv\overline{m}$
+    \deb{e per ogni $n$ tale che $f(n) = \bot$ si ha che $t\overline{n}$ non ha
+    forma normale.}
+\end{block}
+
+\begin{block}[Teorema]
+    Le funzioni rappresentabili nel $\l$-calcolo non tipato sono esattamente le
+    funzioni calcolabili.
+\end{block}
+
+\section{Il $\l$-calcolo tipato semplice}
+
+Nel $\l$-calcolo non tipato, esistono termini per cui la normalizzazione non
+corrisponde all'idea intuitiva di "semplificazione" del termine, come
+nell'esempio \deb{quello con $\Omega$} oppure nel caso ancora peggiore seguente.
+
+\begin{block}[Esempio]
+    \deb{il termine $\Omega_3$}.
+\end{block} 
+
+Il problema alla base di questo comportamento \`e il fatto che non vi \`e
+distizione tra dati e porgrammi e inoltre \`e permessa l'applicazione di un
+termine a se stesso. Versioni pi\`u sofisticate del calcolo puntano dunque a
+introdurre dei vincoli sull'applicazione dei termini, ed \`e per questo che si
+introducono i tipi. L'idea \`e quella di associare ad ogni termine un tipo, e
+permettere l'applicazione di termini solo se i loro tipi sono compatibili.
+
+\begin{block}[Definizione]
+    \deb{I tipi del tipato semplice sono...}
+
+    \deb{I termini del tipato semplice sono...}
+
+    \deb{Le conversioni nel tipato semplice sono...}
+\end{block}
+
+Si vede dunque che il tipo $U\rightarrow V$ corrisponde al tipo delle funzioni
+dai termini di tipo $U$ ai termini di tipo $V$, e che l'applicazione \`e
+consentita solo quando ``il dominio della funzione e il tipo dell'argomento
+coincidono''.
+
+Avendo dato la nozione di conversione anche in questo calcolo, si possono
+definire in modo identico a quanto gi\`a fatto per il calcolo non tipato le
+nozioni di riduzione, forma normale, termini normalizzanti e fortemente
+normalizzanti. Faremo la stessa cosa anche con le successive varianti del
+$\l$-calcolo.
+
+\subsection{Normalizzazione Forte per il Tipato Semplice}
+In questa sezione si dimostra che tutti i termini nel tipato semplice sono
+fortemente normalizzanti.
+
+\deb{Pulire e incollare la dimostrazione in strong\_norm.pdf}
+
+\subsection{Rappresentabilit\`a per il Tipato Semplice}
+All'interno del $\l$-calcolo tipato semplice \`e possibile rappresentare i
+numerali, con gli stessi termini presentati per il caso non tipato. Tuttavia, la
+scelta del tipo per in numeri naturali non \`e unica.
+
+Come importante conseguenza della propriet\`a di normalizzazione forte si ha una
+conseguente riduzione della classe delle funzioni rappresentabili, che devone
+essere per forza totali. Inoltre non tutte le funzioni totali sono
+rappresentabili, \deb{infatti...}
+
+\deb{Per esempio, i termini di somma e prodotto sono tipabili, l'esponenziale
+non lo \`e}
+
+Infatti vale il seguente risulatato \deb{che non dimostro}:
+
+\begin{block}[Teorema]
+    \deb{Le funzioni rappresentabili sono ...}
+\end{block}
+
+\section{Il Sistema T di G\"odel}
+
+Il grosso problema del calcolo tipato semplice \`e che i naturali non hanno un
+tipo unico, e non \`e possibile definire funzioni per ricorsione primitiva. Per
+ovviare a questo problema introduciamo un nuovo calcolo, il sistema T di
+G\"odel, in cui vengono artificialmente inseriti tipi per gli interi, i booleani
+e alcuni termini che rappresentano delle funzioni basilari su di essi.
+
+\begin{block}[Definizione]
+    \deb{I termini del Sistema T...}
+\end{block}
+
+Inoltre si danno anche le regole per le conversioni.
+
+\begin{block}[Definizione]
+    \deb{La riduzione per il Sistema T...}
+\end{block}
+
+Si ha dunque che i termini $O$ e $S$ rappresentano rispettivamente lo zero e il
+successore, e $T$ e $F$ i valori booleani vero e falso. $D$ rappresenta
+l'operatore \textit{if/then/else}, mentre $R$ \`e l'operatore di ricorsione
+primitiva.
+
+\subsection{Normalizzazione Forte per il Sistema T}
+\begin{block}[Teorema]
+    Tutti i termini del sistema T sono fortemente normalizzanti.
+\end{block}
+
+Definiamo come prima cosa la nozione di riducibilit\`a. 
+
+\begin{block}[Definizione]
+    Sia $U$ un tipo del sistema T, e $t$ un termine di tipo $U$. Definiamo
+    induttivamente il suo insieme di riducibilit\`a $\red{U}$ come:
+    \begin{itemize}
+        \item Se $U$ \`e atomico, $t$ \`e riducibile se e solo se \`e fortemente
+            normalizzante.
+        \item Se $U=V\times W$, $t$ \`e riducibile se e solo se $\pi^1 t$ e $\pi
+            ^2 t$ lo sono. 
+        \item Se $T = V \rightarrow W$, $t$ \`e riducibile se e solo se per ogni
+            termine riducibile $v$ di tipo $V$, il termine $tv$ \`e riducibile
+            di tipo $W$.
+    \end{itemize}
+\end{block}
+
+Osserviamo che sono termini riducibili tutte le variabili di tipi primitivi e le
+costanti $O$, $T$, $F$,
+
+\begin{block}[Definizione]
+    Diciamo che un termine $t$ \`e neutrale se \`e in una delle seguenti forme:
+    $x, \pi^1 x, \pi^2 x, xy, Rxyz$ oppure $Dxyz$.
+\end{block}
+
+L'idea dietro alla neutralit\`a \`e che se $t$ \`e un termine neutrale e $v$ un
+termine per cui $tv \conv_C u$, allora $u = t' v$ oppure $u=tv'$ dove $t'$ e $v'$
+sono conversioni rispettivamente di $t$ e $v$.
+
+Dimostriamo ora che gli insiemi di riducibili godono di alcune propriet\`a, che
+saranno utili a dimostrare il teorema di questa sezione e torneranno anche utili
+nello studio della normalizzazione nel sistema F.
+
+\begin{block}[Proposizione]
+    \begin{nlist}[CR1]
+        \item Se $t\in \red{U}$, allora $t$ \`e fortemente normalizzante.
+        \item Se $t\in \red{U}$ e $t\conv u$, allora $u\in\red{U}$.
+        \item Se $t$ \`e neutrale di tipo $U$ e per ogni $t'$ per cui $t\conv_C
+            t'$ vale che $t'\in\red{U}$, allora anche $t\in\red{U}$.
+    \end{nlist}
+\end{block}
+
+Notiamo che la prima propriet\`a indica che essere riducibile implica l'essere
+fortemente normalizzante. La seconda propriet\`a permette di conoscere la
+riducibilit\`a di un termine data la riducibilit\`a di un termine precedente in
+una catena di conversioni. Infine la terza propriet\`a permette di conoscere la
+riducibilit\`a di un termne data quella delle sue conversioni.
+
+A questo punto si dimostrano alcuni lemmi.
+\begin{block}[Lemma]
+    Se $u$ e $v$ sono riducibili, allora anche $\ang{u,v}$ \`e riducibile.
+\end{block}
+
+\begin{block}[Lemma]
+    Se per tutti i termini riducibili $u$ di tipo $U$, il termine $v\sub{u}{x}$
+    \`e riducibile, allora anche il termine $\l x.v$ \`e riducibile.
+\end{block}
+
+\begin{block}[Lemma]
+    Se $u, v, t$ sono termini riducibili, allora anche $D uvt$ \`e riducibile.
+\end{block}
+
+\begin{block}[Lemma]
+    Se $u, v, t$ sono termini riducibili, allora anche $R uvt$ \`e riducibile.
+\end{block}
+
+Adesso si dimostra una versione pi\`u forte del teorema.
+
+\begin{block}[Proposizione]
+    Sia $t$ un termine le cui variabili libere compaiono tra $x_1, \dots, x_n =
+    \underline{x}$, di tipo rispettivamente $U_1, \dots, U_n$. Siano $u_1,
+    \dots, u_n = \underline{u}$ termini riducibili di tipo rispettivamente $U_1,
+    \dots, U_n$. Allora il termine $t\sub{\underline{u}}{\underline{x}}$ \`e
+    riducibile.
+\end{block}
+
+La dimostrazione del teorema segue da quella della proposizione ponendo
+$\underline{u} = \underline{x}$.
+
+\section{Il sistema F}
+
+\subsection{Normalizzazione per il Sistema F}
+
+\section{Aritmetiche di Peano e di Heyting}
+\deb{Introduzione sulla deduzione al primo ordine, linguaggio e assiomi di
+Heyting e peano al primo ordine.}
+
+\deb{Distinzione tra secondo ordine semplice e secondo ordine}
+
+\begin{block}[Definizione]
+    Il linguaggio per la logica del secondo ordine \`e lo stesso di quello del
+    primo ordine con l'aggiunta per ogni naturale $n$ di numerabili simboli
+    $X^n$, i predicati per $n$ variabili. 
+    
+    Le formule sono costruite con le stesse regole del primo ordine con
+    l'aggiunta che \deb{ci sono le formule atomiche e i $\forall^2$...}
+\end{block} 
+
+\begin{block}[Definizione]
+    \deb{Le regole per la deduzione naturale sono quelle solite pi\`u le quattro
+    per i due nuovi quantificatori}
+\end{block}
+
+Si noti che nella logica del secondo ordine si possono definire $\bot, \land,
+\lor, \exists$ e $\exists^2$ ($\bot$ solo nel caso intuizionista).
+
+\deb{Fare alcuni esempi su come si riscrivono i connettivi}.
+
+Inoltre nel secondo ordine, \`e possibile derivare lo schema di comprensione,
+ovvero per ogni formula A(x), vale che
+\[
+    \exists Y\ \forall x\ (A(x) \iff x\in Y).
+\]
+
+\begin{block}[Definizione]
+    \deb{PA e HA, primo ordine} 
+\end{block}
+
+Per il secondo ordine non \`e necessario aggiungere nuovi assiomi alla teoria,
+infatti \`e possibile ottenere l'aritmetica di Peano e di Heyting 
+
+\section{Rappresentabilit\`a in T}
+\subsection{Codifica dei termini}
+Lo scopo di questa sezione \`e quello di interpretare il sistema T all'interno
+delle teorie dell'aritmetica. Per fare ci\`o serve come prima cosa trovare una
+codifica con i numeri di G\"odel per i termini del calcolo.
+\begin{block}[Definizione]
+    \deb{Dato un tipo $U$, gli si associa un numero naturale\dots}
+    
+    \deb{Idem con i termini}
+\end{block}
+
+Abbiamo a questo punto delle formule che esprimono la conversione, la riduzione,
+la normalizzazione di un termine, la forte normalizzazione di un termine.
+
+\subsection{Le funzioni rappresentabili sono dimostrabilmente totali in PA}
+
+Notiamo che le funzioni rappresentabili nel sistema T sono calcolabili. Infatti,
+dati una funzione $f$ rappresentata da un termine $t$ e un numero naturale $n$,
+per la tesi di Church, disponiamo di un algoritmo di calcolo. Si scrive il
+termine $t\numer{n}$, lo si riduce in forma normale $t'$. Essa sar\`a il
+numerale corrispondente al numero naturale $m = f(n)$.
+
+\begin{block}[Lemma]
+    I termini normali di tipo \deb{int} sono tutti e soli i numerali.
+    \deb{Capire dove mettere questo lemma}.
+\end{block}
+
+Sia $T$ una teoria nel linguaggio dell'aritmetica. Sia inoltre $\uni$ la funzione
+universale, ovvero una formula \deb{$\Delta_0$} tale che $\uni (e, n, m)$ \`e
+vera se e solo se il programma con codifica $e$ eseguito con input $n$ ha output
+$m$. 
+
+Diciamo che una funzione \`e dimostrabilmente totale in $T$ se esiste un
+programma con codifica $e$ tale che
+\[
+    T \vdash \forall n\ \exists ! m\ \uni(e, n, m).
+\]
+
+Si noti che la formula da dimostrare ha complessit\`a $\Pi^0_2$.
+
+Vogliamo dunque dimostrare il seguente teorema:
+\begin{block}[Teorema]
+    Tutte le funzioni rappresentabili dal sistema T sono dimostrabilmente totali
+    in PA.
+\end{block}
+
+L'idea di dimostrazione consiste nel ripercorrere la dimostrazione della
+normalizzazione forte su un singolo termine. Per fare ci\`o serve esprimere con
+un predicato la riducibilit\`a di un termine, e poi ragionare per induzione
+sulle varie riducibilit\`a.
+
+\subsection{Le funzioni dimostrabilmente totali in PA sono rappresentabili}
+
+
+\section{Rappresentabilit\`a in F}
+
+Nel sistema F \`e presente un tipo corrispondente ai numeri naturali, ovvero il
+tipo
+\[
+    \tint = \Pi X. X \rar (X \rar X) \rar X
+\]
+
+dove si hanno i termini corrispondenti allo zero e al successore rispettivamente
+uguali a
+\[
+    O = \L X. \l x. \l f. x
+\]
+\[
+    S = \l n. \L X. \l x. \l f. f (nXxf).
+\]
+
+Possiamo scrivere allora i numerali come le forme normali di $S^nO$ per ogni $n$
+naturale. A questo punto dimostriamo il lemma:
+
+\begin{block}[Lemma]
+    I numerali sono tutti e soli i termini in forma normale di tipo $\tint$. 
+\end{block}
+
+\deb{In realt\`a la costruzione fatta per i numeri naturali a partire dai
+costruttori zero e successore pu\`o essere generalizzata a qualunque tipo di
+dato algebrico.}
+
+In modo equivalente a quanto gi\`a fatto con le altre versioni del $\l$-calcolo
+\`e possibile definire la nozione di funzione rappresentabile, e poi dare una
+caratterizzazione di tali funzioni.
+
+\begin{block}[Teorema]
+    Le funzioni dimostrabilmente totali in PA2 sono tutte e sole le
+    funzioni rappresentabili nel sistema F.
+\end{block}
+
+Iniziamo con la freccia pi\`u semplice, ovvero $\Leftarrow$. Come nel caso del
+sistema T, la dimostrazione della forte normalizzazione di un termine, pu\`o
+essere \deb{interpretata} in PA2 come una dimostrazione della totalit\`a della
+funzione corrispondente a tale termine. Infatti per la dimostrazione sono stati
+utilizzati due principi:
+\begin{itemize}
+    \item Lo schema di comprensione, necessario a dimostrare che i riducibili
+        parametrici sono candidati di riducibilit\`a. 
+    \item Il principio di induzione.
+\end{itemize}
+Notiamo che tuttavia non \`e possibile esprimere la riducibilit\`a in generale,
+ma solo per specifici termini.
+
+
+\end{document}

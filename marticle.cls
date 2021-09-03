@@ -2,7 +2,7 @@
 \ProvidesClass{marticle}[MylatexClass]
 
 
-\LoadClass[a4paper,11pt]{article}
+\LoadClass[a4paper,12pt]{article}
 \author{Alessio Marchetti}
 
 \usepackage[numbered]{bookmark}

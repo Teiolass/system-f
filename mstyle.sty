@@ -8,7 +8,6 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{color}
-\usepackage{listings}
 \usepackage{graphicx}
 \usepackage{dsfont}
 \usepackage{subcaption}
@@ -16,8 +15,8 @@
 \graphicspath{ {./images/} }
 
 \newcounter{basicblock}[section]
-% \renewcommand{\thebasicblock}{\thesection.\arabic{basicblock}}
-\renewcommand{\thebasicblock}{\arabic{basicblock}}
+\renewcommand{\thebasicblock}{\thesection.\arabic{basicblock}}
+% \renewcommand{\thebasicblock}{\arabic{basicblock}}
 \newenvironment{block}[1][]
 {\refstepcounter{basicblock}\par\medskip\noindent\textbf{#1~\thebasicblock}\quad}
 { 
@@ -31,31 +30,25 @@
     \setlength{\parsep}{0pt}}
 {\end{enumerate}}
 
+\newcommand{\deb}[1]{\textcolor{red}{#1}}
+
 \renewcommand{\implies}{\Rightarrow}
-\let\forallalias\forall
-\renewcommand{\forall}{\forallalias\ }
 \newcommand{\setof}[1]{\{#1\}}
-\newcommand{\prob}[1]{\mathbb{P}\ [#1]}
-\def\code#1{\texttt{#1}}
 \newcommand{\ind}{\mathds{1}}
 \newcommand{\st}{\ \$\ }
+\newcommand{\vl}{\text{VL}}
+\renewcommand{\l}{\lambda}
+\renewcommand{\L}{\Lambda}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\arr}{\longrightarrow}
+\newcommand{\numer}[1]{\overline{#1}}
+\newcommand{\uni}{\mathcal{U}}
+\newcommand{\ang}[1]{\langle #1 \rangle}
+\newcommand{\tint}{\text{Int}}
+\newcommand{\rar}{\rightarrow}
+
 \newcommand{\can}[1]{\mathcal{#1}}
 \newcommand{\reduce}{\rightsquigarrow}
+\newcommand{\conv}{\rightsquigarrow}
 \newcommand{\sub}[2]{[#1/#2]}
 \newcommand{\red}[1]{\text{RED}_{#1}}
-\lstset{
-    frame=l,
-    basicstyle=\fontsize{9}{9}\selectfont\ttfamily,
-    aboveskip=3mm,
-    belowskip=3mm,
-    showstringspaces=false,
-    columns=fixed,
-    numbers=left,
-    numberstyle=\tiny,
-    keywordstyle=\bfseries,
-    breaklines=true,
-    breakatwhitespace=true,
-    tabsize=4,
-    texcl=true 
-    escapeinside={//}{\^^M}
-}
