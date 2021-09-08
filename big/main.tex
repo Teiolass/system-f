@@ -416,42 +416,192 @@ $\underline{u} = \underline{x}$.
 \subsection{Normalizzazione per il Sistema F}
 
 \section{Aritmetiche di Peano e di Heyting}
-\deb{Introduzione sulla deduzione al primo ordine, linguaggio e assiomi di
-Heyting e peano al primo ordine.}
-
-\deb{Distinzione tra secondo ordine semplice e secondo ordine}
 
 \begin{block}[Definizione]
     Il linguaggio per la logica del secondo ordine \`e lo stesso di quello del
     primo ordine con l'aggiunta per ogni naturale $n$ di numerabili simboli
-    $X^n$, i predicati per $n$ variabili. 
+    $X^n$, che chiameremo variabili di relazione. 
     
-    Le formule sono costruite con le stesse regole del primo ordine con
-    l'aggiunta che \deb{ci sono le formule atomiche e i $\forall^2$...}
+    Le formule atomiche sono $\bot$ e espressioni della forma $X^n(t_1, \dots,
+    t_n)$, dove i $t_i$ sono termini del linguaggio.
+
+    Le formule sono definite induttivamente come:
+    \begin{itemize}
+        \item Le formule atomiche.
+        \item Date $\phi$ e $\psi$ formule, sono formule anche $\phi \land
+            \psi$, $\phi \lor \psi$, $\phi \rar \psi$.
+        \item Data una formula $\phi$ e una variabile $x$, sono formule anche
+            $\forall x \phi$ e $\exists x \phi$.
+        \item Data una formula $\phi$ e una variabile di relazione $X$, sono
+            formule anche $\forall X \phi$ e $\exists X \phi$.
+    \end{itemize}
+    Si definisce inoltre la formula $\lnot \phi$ come $\phi \rar \bot$.
 \end{block} 
 
+In modo naturale possiamo definire il concetto di variabili libere in una
+formula:
 \begin{block}[Definizione]
-    \deb{Le regole per la deduzione naturale sono quelle solite pi\`u le quattro
-    per i due nuovi quantificatori}
+    \begin{itemize} 
+        \item Le variabili libere di $X(t_1, \dots, t_n)$ con $X$ variabile di
+            relazione $n$-aria, sono l'unione di tutte le variabili libere che
+            compaiono nei termini $t_i$ per ogni $i$ e $X$.
+        \item Le variabili libere di $r(t_1, \dots, t_n)$ con $r$ simbolo d
+            relazione $n$-aria sono l'unione di tutte le variabili libere che
+            compaiono nei termini $t_i$ per ogni $i$.
+        \item Le variabili libere di $\phi \land \psi$, $\phi \lor \psi$, $\phi
+            \rar \psi$ sono l'unione delle variabili libere di $\phi$ e $\psi$.
+        \item Le variabili libere di $\forall x \phi$ e $\exists x \phi$ con $x$
+            variabile, sono le variabili libere di $\phi$ meno $x$.
+        \item Le variabili libere di $\forall X \phi$ e $\exists X \phi$ con $X$
+            variabile di relazione, sono le variabili libere di $\phi$ meno $X$.
+    \end{itemize} 
 \end{block}
 
-Si noti che nella logica del secondo ordine si possono definire $\bot, \land,
-\lor, \exists$ e $\exists^2$ ($\bot$ solo nel caso intuizionista).
+La sostituzione di termini nelle variabili \`e la sostituzione standard, con
+l'attenzione di evitare la cattura delle variabili. Per sostituire invece
+relazioni al posto di variabili di relazione ci appoggeremo al concetto di
+specie.
 
-\deb{Fare alcuni esempi su come si riscrivono i connettivi}.
+\begin{block}[Definizione]
+    Sia $\phi$ una formula e $x_1, \dots, x_n$ delle variabili individuali,
+    allora l'espressione $\l x_1, \dots, x_n.\phi$ \`e una specie di ariet\`a
+    $n$. Si noti che le variabili $x_i$ possono apparire o non apparire in
+    $\phi$. 
 
-Inoltre nel secondo ordine, \`e possibile derivare lo schema di comprensione,
-ovvero per ogni formula A(x), vale che
+    Le variabili libere di $\l x_1, \dots, x_n.\phi$ sono le variabili libere di
+    $\phi$ meno le variabili $x_i$.
+
+    Abbrevieremo inoltre l'espressione $\l x_1, \dots x_n.X(x_1, \dots, x_n)$
+    con semplicemente $X$ e se $\underline{x}=x_1,\dots, x_n$, abbrevieremo $\l
+    x_1, \dots, x_n.\phi$ con $\l\underline{x}.\phi$.
+
+    Definiamo inoltre induttivamente la sostituzione di una specie di ariet\`a
+    $n$ $\l\underline{x}.\phi$ in una variabile di relazione $n$-aria $X$:
+    \begin{itemize}
+        \item $\bot\sub{\l\underline{x}.\phi}{X} = \bot$.
+        \item $r(t_1, \dots, t_n)\sub{\l\underline{x}.\phi}{X} = r(t_1, \dots,
+            t_n)$ quando $r$ \`e una relazione oppure una variabile di relazione
+            diversa da $X$.
+        \item $(X(\underline{t})\sub{\l\underline{x}.\phi}{X} =
+            \phi\sub{\underline{t}}{\underline{x}}$.
+        \item $(\eta\rar\psi)\sub{\l\underline{x}.\phi}{X} =
+            \eta\sub{\l\underline{x}.\phi}{X} \rar
+            \psi\sub{\l\underline{x}.\phi}{X}$
+            e equivalentemente per $\eta\lor\psi$ e $\eta\land\psi$.
+        \item $(\forall x \eta)\sub{\l\underline{x}.\phi}{X} = \forall x
+            \eta\sub{\l\underline{x}.\phi}{X}$ per tutte le variabili
+            individuali $x$ che non appaiono libere in $\l\underline{x}.\phi$.
+            Equvalentemente per $\exists x \eta$.
+        \item $(\forall Y \eta)\sub{\l\underline{x}.\phi}{X} = \forall Y
+            \eta\sub{\l\underline{x}.\phi}{X}$ con $Y$ variabile di relazione
+            diversa da $X$ e $Y$ che non appare libera in
+            $\l\underline{x}.\phi$.
+    \end{itemize}
+\end{block}
+
+A questo punto andiamo a presentare le regole della deduzione naturale per la
+logica del secondo ordine:
+\deb{regole per la deduzione, p.308}
+
+Aggiungendo queste regole alle regole della deduzione naturale per la logica
+classica del primo ordine, si ottiene il sistema per la logica classica del
+secondo ordine. Equivalentemente, aggiungendole alle regole per la logica
+intuizionista del primo ordine si ottiene il sistema per la logica intuizionista
+del secondo ordine.
+
+Notiamo che \`e possibile dimostrare in entrambi i tipi di logica il principio
+di comprensione:
 \[
-    \exists Y\ \forall x\ (A(x) \iff x\in Y).
+    \exists Y\ \forall x\ (\phi(x) \leftrightarrow x\in Y).
 \]
+per ogni formula $\phi$.
 
+Inoltre molti dei connettivi presentati sono ridondanti: infatti \`e possibile
+definirli tutti in termini dei soli $\rar$ e $\forall$ (su variabili individuali
+e di relazione). In particolare: \deb{\`E corretto usare =?}
+\begin{itemize}
+    \item $\bot = \forall X.X$.
+    \item $\phi \land \psi = \forall X ((\phi\rar X)\rar (\psi\rar X) \rar X)$.
+    \item $\phi \lor \psi = \forall X ((\phi\rar\psi\rar X) \rar X)$.
+    \item $\exists x \phi = \forall R (\forall x(\phi\rar R)\rar R)$.
+    \item $\exists X \phi = \forall R (\forall X(\phi\rar R)\rar R)$.
+\end{itemize}
+
+Il prossimo passo \`e quello di mettere in evidenza un rapporto che sussiste tra
+le proposizioni derivabili dalla logica intuizionista e la logica classica.
 \begin{block}[Definizione]
-    \deb{PA e HA, primo ordine} 
+    Data una formula $\phi$ definiamo induttivamente la sua traduzione di
+    G\"odel $k(\phi)$ come:
+    \begin{itemize}
+        \item $\lnot\lnot \phi$ se $\phi$ \`e atomica.
+        \item $\lnot\lnot(k(\eta)\rar k(\psi))$ se $\phi=\eta\rar\psi$, e in
+            modo di equivalentemente si definisce per gli altri connettivi
+            binari.
+        \item \dots
+    \end{itemize}
 \end{block}
 
-Per il secondo ordine non \`e necessario aggiungere nuovi assiomi alla teoria,
-infatti \`e possibile ottenere l'aritmetica di Peano e di Heyting 
+Introduciamo adesso le aritemetiche del secondo ordine. Utilizziamo un
+linguaggio che ha come unica costante $0$, il simbolo di funzione successore
+$S$ e una relazione binaria di uguaglianza $=$.
+
+A questo punto possiamo dare il seguente risultato:
+\begin{block}[Proposizione]
+    La proposizione $\phi$ \`e un teorema della logica classica se e solo se
+    $k(\phi)$ \`e un teorema della logica intuizionista.
+\end{block}
+\deb{Dimostrazione?}
+
+Consideriamo i seguenti assiomi per l'uguaglianza:
+\begin{nlist}[U1]
+    \item $\forall a (a=a)$;
+    \item $\forall ab (a=b\rar b=a)$;
+    \item $\forall abc (a=b \rar b=c \rar a=c)$;
+    \item $\forall ab(a=b \rar Sa = Sb)$,
+\end{nlist}
+in cui i primi tre sono i conseti assiomi per una relazione di equivalenza e
+l'ultimo \`e una sorta di passo induttivo.
+
+Aggiungiamo ancora tre assiomi di Peano:
+\begin{nlist}[PA1]
+    \item $\forall ab(Sa =Sb \rar a = b)$;
+    \item $\forall a(Sa=0 \rar \bot)$;
+    \item $\forall a\ \text{Int}(a)$,
+\end{nlist}
+dove $\text{Int}(a) = \forall X(\forall b (X(b)\rar X(Sb)) \rar X(0) \rar X(a))$
+serve a sostituire lo schema di induzione.
+
+\begin{block}[Definizione]
+    Gli assiomi (U1-4) e (P1-3) utilizzati con il sistema della logica classica
+    del secondo ordine definiscono l'aritmetica di peano del secondo ordine PA2.
+    Quando invece sono utilizzati con il sistema della logica intuizionista del
+    secondo ordine definiscono l'aritmetica di Heyting del secondo ordine HA2.
+\end{block}
+
+Utilizzando la quantificazione al secondo ordine \`e anche possibili definire
+dei predicati per la somma e il prodotto (e anche per le funzioni primitive
+ricorsive).
+
+Consideriamo $T$ una teoria nel linguaggio dell'aritmetica. Sia inoltre $\uni$
+la funzione universale, ovvero una formula $\Delta_0$ tale che $\uni (e, n, m)$
+\`e vera se e solo se il programma con codifica $e$ eseguito con input $n$ ha
+output $m$. 
+
+Diciamo che una funzione \`e dimostrabilmente totale in $T$ se esiste un
+programma con codifica $e$ tale che
+\[
+    T \vdash \forall n\ \exists ! m\ \uni(e, n, m).
+\]
+\deb{Aggiungere precisazioni per funzioni con pi\`u di una variabile?}
+
+Notiamo che la formula da dimostrare ha complessit\`a $\Pi^0_2$.
+
+Vale il seguente teorema:
+\begin{block}[Teorema]
+    Le funzioni dimostrabilmente totali in PA2 sono esattamente le funzioni
+    dimostrabilmente totali in HA2.
+\end{block}
+\deb{Dimostrazione?}
 
 \section{Rappresentabilit\`a in T}
 \subsection{Codifica dei termini}
@@ -480,18 +630,6 @@ numerale corrispondente al numero naturale $m = f(n)$.
     \deb{Capire dove mettere questo lemma}.
 \end{block}
 
-Sia $T$ una teoria nel linguaggio dell'aritmetica. Sia inoltre $\uni$ la funzione
-universale, ovvero una formula \deb{$\Delta_0$} tale che $\uni (e, n, m)$ \`e
-vera se e solo se il programma con codifica $e$ eseguito con input $n$ ha output
-$m$. 
-
-Diciamo che una funzione \`e dimostrabilmente totale in $T$ se esiste un
-programma con codifica $e$ tale che
-\[
-    T \vdash \forall n\ \exists ! m\ \uni(e, n, m).
-\]
-
-Si noti che la formula da dimostrare ha complessit\`a $\Pi^0_2$.
 
 Vogliamo dunque dimostrare il seguente teorema:
 \begin{block}[Teorema]
@@ -505,7 +643,6 @@ un predicato la riducibilit\`a di un termine, e poi ragionare per induzione
 sulle varie riducibilit\`a.
 
 \subsection{Le funzioni dimostrabilmente totali in PA sono rappresentabili}
-
 
 \section{Rappresentabilit\`a in F}
 
