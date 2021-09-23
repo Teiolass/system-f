@@ -814,6 +814,152 @@ e
     S (A pq)
 \end{gather*}
 
+Inoltre nel sistema T \`e tipabile anche l'esponenziazone, con il termine
+\[
+    E = \l p^\tint q^\tint . R (SO) (\l x^\tint y^\tint Mpy) q
+\]
+dove $M$ \`e il termine che rappresenta la moltiplicazione. In modo simile \` e
+possibile rappresentare ogni funzione ricorsiva primitiva. Infatti, dato un
+termine $H$ che rappresenta una funzione $h\colon\N\times\N\rar\N$, allora il
+termine
+\[
+    F = \l p^\tint . R \overline{n} (\l x^\tint y^\tint Hxy) p
+\]
+\deb{[controlla che sia giusto]} rappresenta la funzione $f$ definita con $f(0)
+= n$ e $f(k+1) = h(f(k),k)$. \deb{Dimostro?}
+
+Notiamo che per la ricorsione primitiva abbiamo utilizzato il simbolo $R$
+soltanto istanziato sul tipo $\tint$, infatti nei casi che abbiamo visto i suoi
+primi due argomenti sono sempre di tipo $\tint$, $\tint\rar\tint\rar\tint$.
+La definizione del sistema T permette di stanziare $R$ su tipi pi\`u complessi,
+e ci\`o porta ad avere ulteriori funzioni rappresentabili. Per esempio la
+funzione di \deb{Ackermann}.
+
+Nel seguito daremo risultati pi\`u generali, e caratterizzeremo la classe di
+funzioni rappresentabili nel sistema T. Diamo prima una definizione fondamentale
+per tale studio:
+\begin{block}[Definizione]
+    \deb{Data una teoria $T$ nel linguaggio dell'aritmetica, una funzione
+    $f\colon\N\rar\N$ si dice dimostrabilmente totale in $T$ se esiste un
+    predicato $\phi$ di complessit\`a $\Sigma^0_1$ tale che vale $\phi(n,m)$ se
+    e solo se $f(n)=m$ e $T\vdash \forall n\ \exists! m\ \phi(n,m)$.}
+\end{block}
+
+Lo scopo del resto della sezione \`e quello di dimostrare il seguente teorema:
+
+\begin{block}[Teorema]
+    Le funzioni rappresentabili nel sistema T sono tutte e sole le funzioni
+    dimostrabilmente totali nell'aritmetica di Peano.
+\end{block}
+
+Estentendiamo i tipi del sistema T con un nuovo tipo $\one$ e con un termine
+$\i$ di tipo $\one$. Per ogni tipo $U$ di questo sistema esteso definiamo un
+tipo $|U|$ che sia o uguale a $\one$ o tale che $\one$ non vi compaia. Il tipo
+$|U|$ \`e defitnito induttivamente con le seguenti regole:
+\begin{itemize}
+    \item Se $U= \one \times V$, allora $|U|=|V|$.
+    \item Se $U= V \times \one$, allora $|U|=|V|$.
+    \item Se $U= \one \rar V$, allora $|U|=|V|$.
+    \item Se $U= V \rar \one$, allora $|U|=\one$.
+    \item Se $U=V\times W$, con n\`e $V$ n\`e $W$ pari a $\one$ allora $|U|=|V|
+        \times |W|$.
+    \item Se $U=V\rar W$, con n\`e $V$ n\`e $W$ pari a $\one$ allora $|U|=|V|
+        \rar |W|$.
+    \item Se $U$ \`e un tipo atomico, allora $|U|=U$.
+\end{itemize}
+
+Definiamo inoltre una mappa $\flat$ dalle formule dell'aritmetica (scritte senza
+la congiunzione) ai tipi del sistema T esteso come segue:
+\begin{align*}
+    \flat(\bot) &=\one;\\
+    \flat(s=t) &= \one;\\
+    \deb{\dots\text{continuare}}
+\end{align*}
+
+La definizione per i casi con i quantificatori \`e legata all'idea che una
+formula del tipo $\forall x\ \phi$ dove la quantificazione universale viene
+ristretta ai soli numeri naturali si scriverebbe come $\forall x\ (\text{int}(x)
+\rar \phi)$. In modo equivalente la formula $\exists x\ \phi$ si riscriverebbe
+come $\exists x\ (\text{int}(x) \land \phi$.
+
+Definiamo ora la realizzabilit\`a. Si dice che un termine chiuso uguale a $\i$ o
+n cui $\i$ non compare $M$ di tipo $\flat{\phi}$ realizza una formula chiusa
+$\phi$ nelle seguenti situazioni:
+\begin{itemize}
+    \item $M=\i$ e $\phi$ \`e la formula $s=t$ e $s$ e $t$ rappresentano lo
+        stesso numerale;
+    \item $\phi$ \`e la formula $\forall x\ \phi$ e $M\overline{n}$ realizza
+        $\phi\sub{\overline{n}}{x}$ per tutti gli $n$.
+    \item $\phi$ \`e la formula $\exists x\ \phi$ e $\pi^1M$ si riduce a
+        $\overline{n}$ e $\pi^2M$ realizza $\phi\sub{\overline{n}}{x}$ per
+        qualche intero $n$.
+    \item $\phi$ \`e la formula $\psi\land\eta$ e $\pi^1M$ realizza $\psi$ e
+        $\pi^2M$ realizza $\eta$.
+    \item $\phi$ \`e la formula $\psi \rar \eta$ e il termine $MN$ realizza
+        $\eta$ per tutti i termini $N$ che realizzano $\psi$.
+\end{itemize}
+
+Notiamo che non esiste alcun termine che realizzi $\bot$.
+
+Diciamo inoltre che $M$ realizza un giudizio $\Gamma \vdash\phi$ con
+$\Gamma=\setof{\gamma_1,\dots,\gamma_n}$ se $M$ realizza la formula
+$\gamma_1\rar\cdots\rar\gamma_n\rar \phi$. Una formula si dice realizzabile se
+esiste un termine che la realizza.
+
+Dimostriamo ora il seguente importante teorema:
+\begin{block}[Teorema]
+    Ogni giudizio dimostrabile nell'aritmetica di Heyting \`e realizzato da un
+    termine del sistema T.
+\end{block}
+\begin{proof}
+    L'idea \`e quella di procedere induttivamente, dimostrando prima che gli
+    assiomi dell'aritmetica di Heyting sono realizzabili, e poi che avendo a
+    disposizione dei termini che realizzano le premesse delle regole della
+    deduzione naturale, \`e possibile costruire un termine che ne realizzi la
+    conclusione.
+
+    Gli assiomi per l'uguaglianza sono realizzabili, infatti $\forall x(x=x)$
+    \`e realizzato dal termine $\i$, cos\`i come l'assioma $\forall x\forall y
+    (x=y)\rar(y=x)$. 
+    L'assioma di Peano $\forall x (Sx=O\rar \bot)$ \`e sempre realizzato da $\i$
+    perch\'e la formula atomica $Sx=O$ non \`e realizzabile.
+
+    Mostriamo ancora la realizzabilit\`a dell'assioma di induzione. Se
+    $|\phi|=\one$, allora l'assioma \`e realizzato da $\i$. In caso contrario,
+    sia $t$ un termine che realizza il passo induttivo $\forall x(\phi(x) \rar
+    \phi(Sx)$ e sia $u$ un termine che ralizza il passo base $\phi(O)$. Si ha
+    allora che per ogni $n>0$, il termine
+    \[
+        t\overline{n-1}(t \overline{n-2}(\cdots t \overline{1}( t \overline{0} u
+        )\cdots))
+    \]
+    realizza $\phi(\overline{n})$. Utilizziamo dunque il simbolo di ricorsione
+    per definire il termine $v = \l pqn. Rpqn$ che realizza l'assioma di
+    induzione.
+    \deb{non \`e conclusa}
+\end{proof}
+
+A questo punto possiamo concludere la dimostrazione del teorema principale.
+\begin{block}[Proposizione]
+    Le funzioni dimostrabilmente totali nell'aritmetica di Peano sono
+    rappresentabili nel sistema T.
+\end{block}
+\begin{proof}
+    Notiamo che poich\`e le formule $\Pi^0_2$ dimostrabili in Peano sono
+    esattamente quelle dimostrabili in Heyting, basta dimostrare la
+    proprosizione relativamente al caso intuizionista. Sia allora $f$ una
+    funzione dimostrabilmente totale.
+    Per ipotesi abbiamo dunque una formula $\Sigma^0_1$, sia essa $\phi$, tale
+    che $\text{HA} \vdash \forall n\ \exists m\ \phi(n,m)$ e $\phi(n,m)$ \`e
+    vera quando $f(n)=m$. Per la proposizione \deb{XXX}, esiste un termine $M$
+    che realizza tale formula. Dunque per ogni naturale $n$, $M\overline{n}$
+    realizza la formula $\exists m\ \phi(\overline{n}, m)$. Si ha qundi che
+    $\pi^1(M\overline{n})$ si riduce a un numerale $\overline{m}$ e che
+    $\pi^2(M\overline{n})$ realizza $\phi(\overline{n}, \overline{m})$. Diciamo
+    che il termine $\l x. \pi^1 (Mx)$ rappresenta $f$, infatti \deb{$\phi(
+    \overline{n}, \overline{m})$} \`e vera, e quindi $f(n)=m$.
+\end{proof}
+
 \section{Il sistema F}
 
 In questa sezione introduciamo un'ulteriore variante del $\l$-calcolo tipato
@@ -1229,12 +1375,11 @@ sul tipato semplice}.
             ipostesi induttiva vale che $w\subvx\subut\in \red{W \rightarrow
             T}\subrx$ e che $v\subvx\subut \in \red{W}\subrx$. In questo caso la
             tesi segue dalla definizione di $\red{W\rightarrow T}$.
-        \item $t=wS$. Questo caso \`e una diretta conseguenza del lemma XXX
+        \item $t=wS$. Questo caso \`e una diretta conseguenza del lemma \deb{XXX}
             sull'istanziazione. 
-            % @todo
-        \item $t=\Lambda Z. Y$. Questo discende dal lemma XXX sulla
+        \item $t=\Lambda Z. Y$. Questo discende dal lemma \deb{XXX} sulla
             generalizzazione.
-        \item $t=\lambda y^P.w$. Questo caso si fa con il lemma XXX sui tipi
+        \item $t=\lambda y^P.w$. Questo caso si fa con il lemma \deb{XXX} sui tipi
             freccia.
     \end{nlist}
 \end{proof}
@@ -1343,6 +1488,14 @@ specie.
 A questo punto presentiamo le regole della deduzione naturale per la
 logica del secondo ordine:
 \deb{regole per la deduzione, p.308}
+\[
+    \begin{prooftree}
+        \hypo{A}
+        \ellipsis{}{A'}
+        \hypo{B}
+        \infer2[inf]{C}
+    \end{prooftree}
+\]
 
 Aggiungendo queste regole alle regole della deduzione naturale per la logica
 classica del primo ordine, si ottiene il sistema per la logica classica del
@@ -1492,27 +1645,177 @@ utilizzati due principi:
         parametrici sono candidati di riducibilit\`a. 
     \item Il principio di induzione.
 \end{itemize}
-Notiamo che tuttavia non \`e possibile esprimere la riducibilit\`a in generale,
-ma solo per specifici termini.
+Notiamo che tuttavia non \`e possibile esprimere la riducibilit\`a in modo
+uniforme su tutti i tipi del sistema F, ma soltanto caso per caso per ciascun
+tipo.
+
+L'obiettivo del resto della sezione \`e quello di dimostrare l'ultima freccia
+del teorema, ovvero la seguente proposizione.
+\begin{block}[Proposizione]
+    Le funzioni dimostrabilmente totali in HA2 sono rappresentabili nel sistema
+    F.
+\end{block}
+
+L'idea \`e quella di trovare una traduzione dalle dimostrazioni di totalit\`a di
+una funzione in programmi del sistema F. Per fare ci\`o iniziamo con
+l'assiociare ad ogni formula $\phi$ in HA2 (dimostrabile o non dimostrabile) un
+tipo $\cod{\phi}$ del sistema F. L'assiociazione viene fatta con le seguenti
+regole:
+\begin{itemize}
+    \item $\cod{a=b} = S$, dove $S$ \`e un tipo fissato per cui esiste almeno un
+        termine di tale tipo, per esempio $S=\P X.X\rar X$.
+    \item $\cod{\phi\rar\psi}=\cod{\phi}\rar\cod{\psi}$.
+    \item $\cod{\forall x.\phi}=\cod{\phi}$, per le quantificazioni del primo
+        ordine.
+    \item $\cod{\forall X.\phi}=\cod{\phi}$ per le quantificazioni del secondo
+        ordine.
+\end{itemize}
+
+Notiamo che con queste regole le variabili del primo ordine scompaiono
+completamente, per cui $\cod{\phi\sub{a}{x}}=\cod{\phi}$.
+
+Inoltre \`e possibile esprimere i connettivi di congiunzione e disgiunzione con
+le implicazioni e la quantificazione al secondo ordine, e associare ad essi un
+relativo tipo:
+\[
+    \cod{\phi\land\psi}=\cod{\forall X((\phi\rar\psi\rar X)\rar X)} = \P X
+    .(\cod{\phi}\rar\cod{\psi} \rar X)\rar X.
+\]
+Questo tipo corrisponde a quello che avevamo definito essere $\cod{\phi} \times
+\cod{\psi}$. In modo simile vale che il tipo relativo a $\phi \lor \psi$ \`e
+uguale al tipo $\cod{\phi}+\cod{\psi}$. Notiamo tuttavia che i tipi $\cod{
+\phi\land\psi}$ (rispettivamente $\cod{\phi\lor\psi}$) sono differenti dai tipi
+$\cod{ \psi\land\phi}$ (rispettivamente $\cod{\psi\lor\phi}$).
+
+Analogamente possiamo trovare la traduzione della formula $\text{Int}(x)$. Essa
+\`e infatti il tipo $\P X. X\rar(X\rar X)\rar X = \tint$.
+
+Ora possiamo definire un traduzione di ogni dimostrazione di una formula $\phi$
+con un termine di tipo $\cod{\phi}$. Utilizziamo la notazione $\cod{\delta}$ per
+indicare la traduzione di una dimostrazione $\delta$. Tale traduzione avviene
+secondo le seguenti regole:
+\begin{itemize}
+    \item Se $\delta$ \`e l'ipotesi $\eta_i$, allora $\cod{\delta}$ \`e la
+        variabile $x_i$ di tipo $\cod{\eta_i}$.
+    \item Ciascun assioma viene tradotto in un qualunque termine fissato del
+        tipo corretto.
+    \item Se l'ultimo passo di $\delta$ \`e la deduzione di una formula
+        $\eta\rar\phi$ con l'introduzione dell'implicazione fatta eliminando
+        l'ipotesi $\eta$ corrispondente alla variabile $x$ e se chiamiamo
+        $\epsilon$ la dimostrazione di $\phi$, allora $\cod{\delta} = \l x.
+        \cod{\phi}$. La situazione rappresentata \`e la seguente:
+        \[
+            \begin{prooftree}
+                \hypo{\eta}
+                \ellipsis{$\epsilon$}{\phi}
+                \infer1[$\delta$]{\eta\rar\phi} 
+            \end{prooftree}
+        \]
+    \item Se $\delta$ \`e la dimostrazione di una formula $\phi$ il cui ultimo
+        passo \`e l'eliminazione dell'implicazione fatta a partire dalle formule
+        $\psi$ e $\psi\rar\phi$, dimostrate rispettivamente con $\epsilon$ e con
+        $\gamma$, allora $\cod{\delta} = \cod{\gamma}\cod{\epsilon}$.
+        La situazione \`e illustrata da:
+        \[
+            \begin{prooftree}
+                \hypo{}
+                \ellipsis{$\gamma$}{\psi\rar\phi}
+                \hypo{}
+                \ellipsis{$\epsilon$}{\psi}
+                \infer2[$\delta$]{\phi}
+            \end{prooftree}
+        \]
+    \item Se l'ultimo passo di $\delta$ \`e l'introduzione o l'eliminazione di
+        un quantificatore del primo ordine, allora la traduzione non fa nulla.
+        In particolare se l'ultima inferenza di $\delta$ introduce la
+        quantificazione universale $\forall x\phi$ a partire da $\phi$, formula
+        dimostrata con $\epsilon$, allora $\cod{\delta}=\cod{\epsilon}$.
+        Similmente, se l'ultima inferenza di $\delta$ dimostra $\phi \sub{a}{x}$
+        a partire da $\forall x \phi$, formula dimostrata con $\epsilon$, allora
+        si ha ancora $\cod{\delta}=\cod{\epsilon}$.
+        Le situazioni illustrate sono le seguenti:
+        \[
+            \begin{prooftree}
+                \hypo{}
+                \ellipsis{$\epsilon$}{\phi}
+                \infer1[$\delta$]{\forall x \phi}
+            \end{prooftree}
+            \hspace{3cm}
+            \begin{prooftree}
+                \hypo{}
+                \ellipsis{$\epsilon$}{\forall x \phi}
+                \infer1[$\delta$]{\phi\sub{a}{x}}
+            \end{prooftree}
+        \]
+    \item Se $\delta$ termina con l'introduzione di un quantificatore universale
+        del secondo ordine per dimostrare una formula $\forall X\phi$ a partire
+        da  $\phi$, dimostrata a sua volta da $\epsilon$, allora $\cod{\delta} =
+        \P X. \cod{\epsilon}$. La situazione corrispondente \`e:
+        \[
+            \begin{prooftree}
+                \hypo{}
+                \ellipsis{$\epsilon$}{\phi}
+                \infer1[$\delta$]{\forall X \phi}
+            \end{prooftree}
+        \]
+    \item Infine se $\delta$ termina con l'eliminazione di una quantificazione
+        del secondo ordine in cui partendo da una formula $\forall X.\phi$,
+        dimostrata con $\epsilon$ si deduce $\phi\sub{\l x. \psi}{X}$, allora
+        $\cod{\delta} = \cod{\epsilon}\cod{\psi}$ (in cui nel secondo membro la
+        prima traduzione \`e quella di una dimostrazione, la seconda \`e quella
+        di una formula). La situazione \`e la seguente:
+        \[
+            \begin{prooftree}
+                \hypo{}
+                \ellipsis{$\epsilon$}{\forall x \phi}
+                \infer1[$\delta$]{\phi\sub{\l x.\psi}{X}}
+            \end{prooftree}
+        \]
+\end{itemize}
+
+Osserviamo che le regole appena presentate rispettano i tipi di tutte le
+formule.
 
 \begin{block}[Lemma]
     Esiste un'unica deduzione normale di $\text{Int} (S^nO)$, ovvero
     $\check{n}$.
 \end{block}
 
-Consideriamo ora la formula $\phi(x,y)$ che esprime il fatto che dato un
-algoritmo con input $x$ termini con output $y=f(x)$, a meno di una codifica con
-numeral. Supponiamo di voler dimostrare in HA2
-\[
-    \forall n\in\N\ \exists m\in\N . \phi(x,y)
-\]
-ovvero
-\[
-    \forall x (\text{Int}(x)\rar \exists y. (\text{Int}(y)\land \phi(x,y))).
-\]
-Chiamiamo $\delta$ tale dimostrazione. AD essa associamo un termine
-$\cod{\delta}$ di tipo $\tint\rar (\tint\times\cod{\phi})$ e un termine $t = \l
-x^\tint.\pi^1(\cod{\delta}x)$ che ne contiene il significato algoritmico.
+\begin{proof}
+    Consideriamo la formula $\phi(x,y)$ che esprime il fatto che dato un
+    algoritmo con input $x$ termini con output $y=f(x)$, a meno di una codifica
+    con numeral.  Supponiamo di voler dimostrare in HA2
+    \[
+        \forall n\in\N\ \exists m\in\N . \phi(x,y)
+    \]
+    ovvero
+    \[
+        \forall x (\text{Int}(x)\rar \exists y. (\text{Int}(y)\land \phi(x,y))).
+    \]
+    Chiamiamo $\delta$ tale dimostrazione. Ad essa associamo un termine
+    $\cod{\delta}$ di tipo $\tint\rar (\tint\times\cod{\phi})$ e un termine $t =
+    \l x^\tint.\pi^1(\cod{\delta}x)$ che ne contiene il significato algoritmico.
+
+    Infatti per ogni naturale $n$, la forma normale della deduzione di $\exists
+    y.  (\text{Int}(y)\land \phi(S^nO,y))$ deve necessariamente terminare con
+    l'introduzione
+    \[
+        \begin{prooftree}
+            \hypo{\text{Int}(S^mO)\land \phi(S^nO,S^mO)} 
+            \infer1[$\exists \text{I}$]{\exists y.(\text{Int}(y)\land
+                \phi(S^nO,y))}
+        \end{prooftree}.
+    \]
+    Dunque applicando l'eliminazione a sinistra alla deduzione di
+    $\text{Int}(S^mO)\land \phi(S^nO,S^mO)$ si ottiene una deduzione di
+    $\text{Int}(S^mO)$, la cui traduzione \`e equivalente a $t\overline{n}$. Per
+    il lemma \deb{XXX}, tale deduzione ha una forma normale $\check{m}$, per cui
+    $t \overline{n}$ si normalizza a $\overline{m}$. Inoltre poich\'e la formula
+    $\phi(S^nO, S^mO)$ \`e dimostrabile in HA2, \deb{essa \`e vera nel modello
+    standard} e quindi $f(n)=m$. Questo conclude la dimostrazione della
+    proposizione.
+\end{proof}
+
 
 
 \end{document}
