@@ -80,9 +80,10 @@ $\lambda$-calcolo pi\`u semplice, ovvero quello non tipato.
 
 L'idea intuitiva dietro questa definizione \`e quella che un termine del tipo
 $\l x.t$ corrisponde a un programma con input $x$ e corpo $t$. Inoltre
-un'applicazione della forma $tv$ rappresenta  un programma $t$ quando con input
-$v$. Un fatto interessante da notare \`e che i termini possono svolgere
-indistintamente il ruolo di programma e di dato su cui un programma opera.
+un'applicazione della forma $tv$ rappresenta  un programma $t$ quando eseguito
+con input $v$. Un fatto interessante da notare \`e che i termini possono
+svolgere indistintamente il ruolo di programma e di dato su cui un programma
+opera.
 
 Per comodit\`a e leggibilit\`a delle notazioni, ometteremo spesso le parentesi
 sottointendendo che l'applicazione si associa a sinistra (e quindi $xyz=(xy)z$)
@@ -98,7 +99,7 @@ individuale a cui si riferisce. Pi\`u formalmente:
 
 \begin{block}[Definizione]
     Un'occorrenza della variabile $x$ in un termine $t$ si dice legata se esiste
-    un sottotermine del tipo $\l x. t'$ che la contiene. Si dice legata
+    un sottotermine del tipo $\l x. t'$ che la contiene. Si dice libera
     altrimenti.
 
     Inoltre, dato un termine $t$ si definiscono induttivamente le sue variabili
@@ -190,7 +191,7 @@ infinita. Questa distinzione \`e importante e conduce alle seguenti definizioni.
 
 \begin{block}[Definizione]
     Un termine si dice in forma normale se non pu\`o essere ulteriormente
-    convertito. Un termine si dice normalizzante se pu\`o essere convertito a un
+    convertito. Un termine si dice normalizzante se pu\`o essere ridotto a un
     termine in forma normale.
 \end{block}
 
@@ -240,8 +241,8 @@ converte un termine normalizzante.
     v$, allora esiste un quarto termine $w$ tale che $u\conv w$ e $v\conv w$.
 \end{block}
 
-La propriet\`a di essere in forma normale restringe la possibile struttura in
-cui possono essere i termini del $\l$-calcolo.
+La propriet\`a di essere in forma normale restringe la possibile struttura dei
+termini del $\l$-calcolo.
 
 \begin{block}[Proposizione]
     Un termine si dice in forma normale di testa se \`e nella forma
@@ -352,7 +353,7 @@ introdurre dei vincoli sull'applicazione dei termini, ed \`e per questo motivo
 che si introducono i tipi. L'idea \`e quella di associare ad ogni termine una
 struttura sintattica chiamata tipo, e permettere l'applicazione di termini solo
 se i loro tipi sono compatibili. Notiamo una forte somiglianza tra i tipi del
-$\l$-calcolo, e i tipi presenti nei linguaggi di programmazione.
+$\l$-calcolo e i tipi presenti nei linguaggi di programmazione.
 
 Definiamo allora una variante del $\l$-calcolo detta $\l$-calcolo tipato
 semplice.
@@ -390,9 +391,9 @@ consentita solo quando ``il dominio della funzione e il tipo dell'argomento
 coincidono''.
 
 In modo identico a quanto gi\`a fatto per il $\l$-calcolo semplice (essendo i
-termini tipato semplice un sottoinsieme), \`e possibile definire le nozioni di
-conversione, riduzione e forma normale. Si noti che tali relazioni conservano il
-tipo dei termini.
+termini tipato semplice un sottoinsieme di quelli del non tipato), \`e possibile
+definire le nozioni di conversione, riduzione e forma normale. Si noti che tali
+relazioni conservano il tipo dei termini.
 
 \subsection{Normalizzazione Forte per il Tipato Semplice}
 L'obiettivo di questa sezione \`e quella di dimostrare il seguente importante
@@ -555,10 +556,10 @@ proposizione ponendo $\underline{u} = \underline{x}$.
 \subsection{Rappresentabilit\`a per il Tipato Semplice}
 
 All'interno del $\l$-calcolo tipato semplice \`e possibile rappresentare i
-numerali, con gli stessi termini presentati per il caso non tipato. Tuttavia, la
-scelta del tipo per le variabili che vi compaiono non \`e unica. Infatti per
-ogni tipo $U$ possiamo costruire per ogni naturale $n$ il corrispondente
-numerale
+numeri naturali con gli stessi numerali presentati per il caso non tipato.
+Tuttavia, la scelta del tipo per le variabili che vi compaiono non \`e unica.
+Infatti per ogni tipo $U$ possiamo costruire per ogni naturale $n$ il
+corrispondente numerale
 \[
     \overline{n} = \l f^{U\rar U} .\l x^U. f^n x
 \]
@@ -593,7 +594,7 @@ enumerazione con i termini del calcolo, ma ci\`o \`e assurdo perch\'e l'insieme
 delle (codifiche delle) funzioni totali non \`e ricorsivamente enumerabile.
 
 Per esempio il termine che avevamo usato per rappresentare l'esponenziazione non
-pu\`o essere tipato infatti l'applicazione di un numerale a un altro numerale,
+pu\`o essere tipato; infatti l'applicazione di un numerale a un altro numerale,
 ovvero un termine di tipo $\tint$ a un altro termine di tipo $\tint$, non \`e
 permessa dalle regole del $\l$-calcolo tipato semplice.
 
@@ -614,11 +615,11 @@ Un verso \`e immediato, avendo gi\`a trovato i termini $A$, $M$ e $C$.
 Il grosso problema che rende in un certo senso limitante calcolo tipato semplice
 \`e che i numerali non hanno un tipo canonico, e non \`e possibile definire
 funzioni per ricorsione primitiva.  Tale calcolo ha dunque un'espressivit\`a
-molto bassa.  Per ovviare a questo problema introduciamo un nuovo calcolo, il
-sistema T di G\"odel, in cui vengono artificialmente inseriti tipi per gli
-interi e alcuni termini che rappresentano delle funzioni basilari su di essi.
-Vedremo che con queste semplici aggiunte il calcolo guadagna una forte potenza
-espressiva.
+molto bassa.  Per ovviare a questo problema introduciamo una nuova variante del
+calcolo, il sistema T di G\"odel, in cui vengono artificialmente inseriti tipi
+per gli interi e le coppie di termini, insieme a nuove costruzioni che
+rappresentano delle funzioni basilari su di essi.  Vedremo che con queste
+semplici aggiunte il calcolo guadagna una forte potenza espressiva.
 
 Per definire dunque il sistema T, estendiamo la definizione dei tipi e dei
 termnini del $\l$-calcolo tipato semplice. 
@@ -660,7 +661,7 @@ dal termine $\ang{u,v}$; $\pi^1$ e $\pi^1$ sono le proiezioni.  Il termine $O$ e
 il simbolo $S$ rappresentano rispettivamente lo zero e la funzione di
 successore, e pertanto scriveremo il numerale relativo a $n$ come $S^nO$.
 Inoltre $R$ \`e l'operatore di ricorsione primitiva, per cui $Ruv(St) =
-v(Ruvt)t$.
+v(Ruvt)t$, dove l'uguaglianza \`e intesa a meno di $\beta$-equivalenza.
 
 Con l'introduzione dei nuovi termini occorre estendere le regole per la
 conversione:
@@ -713,17 +714,20 @@ neutrale:
     \end{itemize}
 \end{block}
 
-\begin{block}[Definiizone]
+\begin{block}[Definizione]
     Un termine si dice neutrale quando non \`e in nessuna delle seguenti forme:
     $\ang{u,v}$, $\l x. v$, $O$ o $S t$.
 \end{block}
+
+Anche con questa definizione di neutralit\`a vale l'osservazione fatta appena
+sotto la definizione \deb{XXX}.
 
 Con queste definizioni estese possiamo riproporre senza modifiche le propriet\`a
 (CR1-3). Continua a valere la proposizione \deb{3.6??}, di cui dobbiamo
 estendere la dimostrazione.
 
 \begin{block}[Proposizione]
-    Per tutti i riducibili valgono le propriet\`a (CR1-3).
+    Per tutti i riducibili del sistema T valgono le propriet\`a (CR1-3).
 \end{block}
 
 \begin{proof}
@@ -858,7 +862,7 @@ e
     S (A pq)
 \end{gather*}
 
-Inoltre nel sistema T \`e tipabile anche l'esponenziazone, con il termine
+Inoltre nel sistema T \`e tipabile anche l'esponenziazione, con il termine
 \[
     E = \l p^\tint q^\tint . R (SO) (\l x^\tint y^\tint Mpy) q
 \]
@@ -874,7 +878,7 @@ rappresenta la funzione $f$ definita con $f(0) = n$ e $f(k+1) = h(f(k),k)$.
 
 Notiamo che per la ricorsione primitiva abbiamo utilizzato il simbolo $R$
 soltanto istanziato sul tipo $\tint$, infatti nei casi che abbiamo visto i suoi
-primi due argomenti sono sempre di tipo $\tint$, $\tint\rar\tint\rar\tint$.
+primi due argomenti sono sempre di tipo $\tint$ e $\tint\rar\tint\rar\tint$.
 La definizione del sistema T permette di stanziare $R$ su tipi pi\`u complessi,
 e ci\`o porta ad avere ulteriori funzioni rappresentabili. Per esempio la
 funzione di Ackermann \deb{(che faccio vedere esplicitamente?)}.
@@ -923,7 +927,7 @@ la racchiudiamo nella prossima proposizione.
 Per mostrare l'altra implicazione, estentendiamo i tipi del sistema T con un
 nuovo tipo $\one$ e con un termine $\i$ di tipo $\one$. Per ogni tipo $U$ di
 questo sistema esteso definiamo un tipo $|U|$ che sia o uguale a $\one$ o tale
-che $\one$ non vi compaia. Il tipo $|U|$ \`e defitnito induttivamente con le
+che $\one$ non vi compaia. Il tipo $|U|$ \`e definito induttivamente con le
 seguenti regole:
 \begin{itemize}
     \item Se $U= \one \times V$, allora $|U|=|V|$.
@@ -952,10 +956,11 @@ La definizione per i casi con i quantificatori \`e legata all'idea che una
 formula del tipo $\forall x\ \phi$ dove la quantificazione universale viene
 relativizzata ai soli numeri naturali si scriverebbe come $\forall x\
 (\text{int}(x) \rar \phi)$. In modo equivalente la formula $\exists x\ \phi$ si
-riscriverebbe come $\exists x\ (\text{int}(x) \land \phi$.
+riscriverebbe come $\exists x\ (\text{int}(x) \land \phi)$, dove $\text{int}$
+esprime il predicato di appartenenza ai numeri naturali.
 
 Definiamo ora la realizzabilit\`a. Si dice che un termine chiuso uguale a $\i$ o
-n cui $\i$ non compare $M$ di tipo $\flat{\phi}$ realizza una formula chiusa
+n cui $\i$ non compare $M$ di tipo $\flat(\phi)$ realizza una formula chiusa
 $\phi$ nelle seguenti situazioni:
 \begin{itemize}
     \item $M=\i$ e $\phi$ \`e la formula $s=t$ e $s$ e $t$ rappresentano lo
@@ -1057,7 +1062,7 @@ A questo punto possiamo concludere la dimostrazione del teorema principale.
 \begin{proof}
     Notiamo che poich\`e le formule $\Pi^0_2$ dimostrabili in Peano sono
     esattamente quelle dimostrabili in Heyting, basta dimostrare la
-    proprosizione relativamente al caso intuizionista. Sia allora $f$ una
+    proposizione relativamente al caso intuizionista. Sia allora $f$ una
     funzione dimostrabilmente totale.
     Per ipotesi abbiamo dunque una formula $\Sigma^0_1$, sia essa $\phi$, tale
     che $\text{HA} \vdash \forall n\ \exists m\ \phi(n,m)$ e $\phi(n,m)$ \`e
@@ -1074,8 +1079,8 @@ A questo punto possiamo concludere la dimostrazione del teorema principale.
 
 In questa sezione introduciamo un'ulteriore variante del $\l$-calcolo tipato
 detta sistema F. Essa mantiene e anzi estende l'espressivit\`a del sistema T di
-G\"odel e allo stesso tempo evita soluzioni ad hoc come l'inserimento fra i tipi
-di un tipo $\tint$. Nel sistema F vedremo che esiste comunque un tipo
+G\"odel e allo stesso tempo evita soluzioni ad hoc come l'inserimento esplicito
+fra i tipi di un tipo $\tint$. Nel sistema F vedremo che esiste comunque un tipo
 corrispondente ai numeri naturali, ma la sua costruzione \`e assai pi\`u
 generale, e permette, fra le tante cose, di definire tipi coppia e tipi unione
 oppure tipi corrispondenti a liste o alberi. La chiave per fare questo \`e
@@ -1084,17 +1089,17 @@ l'introduzione di una quantificazione sui tipi.
 \begin{block}[Definizione]
     I tipi del sistema F sono definiti induttivamente come:
     \begin{itemize}
-        \item $U_1, U_2, \dots$ sono tipi, detti variabili di tipo e sono anche
-            detti tipi atomici.
+        \item $U_1, U_2, \dots$ sono tipi, detti variabili di tipo o anche tipi
+            atomici.
         \item Se $U$ e $V$ sono tipi, allora anche $(U\rar V)$ \`e un tipo.
         \item Se $X$ \`e una variabile di tipo e $U$ \`e un tipo, allora anche
             $\P X. U$ \`e un tipo.
     \end{itemize}
 \end{block}
 
-Avendo una quantificazione \`e utile avere anche la distinzione tra occorrenze
-libere e legate di variabili di tipo. Un'occorrenza di una variabile di tipo $X$
-\`e legata se $X$ compare in un tipo nella forma $\P X. U$.
+Avendo una sorta di quantificazione \`e utile avere anche la distinzione tra
+occorrenze libere e legate di variabili di tipo. Un'occorrenza di una variabile
+di tipo $X$ \`e legata se $X$ compare in un tipo nella forma $\P X. U$.
 
 \begin{block}[Definizione]
     I termini del sistema F si definiscono induttivamente come:
@@ -1132,9 +1137,9 @@ conversione.
 
 Attraverso l'astrazione sui tipi, o generalizzazione, possiamo comporre
 programmi che operano uniformemente su dati di differenti tipi. L'esempio pi\`u
-facile \`e dato dal termine identit\`a $\l x. \l x^x. x$, di tipo $\P X. X$.
-Dato un termine $u$ di tipo $U$, si ha che $(\l x. \l x^x. x)U$ ha tipo $U$ e si
-riduce a $\l x^U.x$ e quindi $(\l x. \l x^x. x)Uu$ si riduce semplicemente a
+facile \`e dato dal termine identit\`a $\L X. \l x^X. x$, di tipo $\P X. X$.
+Dato un termine $u$ di tipo $U$, si ha che $(\L X. \l x^X. x)U$ ha tipo $U$ e si
+riduce a $\l x^U.x$ e quindi $(\l X. \l x^X. x)Uu$ si riduce semplicemente a
 $u$.
 
 Altri tipi che possono essere costruiti corrispondo al tipo prodotto e il tipo
@@ -1172,11 +1177,11 @@ e l'equivalente sulla variabile di tipo $V$ come
 \[
     \text{UN2} = \l v^V. \L X. \l p^{U\rar X} q^{V\rar X}. qv.
 \]
-Mostriamo anche un termine di elimiazione per il tipo unione, il termine 
+Mostriamo anche un termine di eliminazione per il tipo unione, ovvero
 \[
     D uvt = tU (\l x^U.u)(\l x^V.v)
 \]
-tale che valga la riduzione
+per cui vale la riduzione
 \begin{gather*}
     Duv(\text{UN1}r) = (\L X. \l p^{U\rar X}q^{V\rar X}. pr) U (\l x^U.u)(\l
     x^V.v) \conv \\
@@ -1212,14 +1217,16 @@ Se $u_1, u_2,\dots$ sono termini di tipo $U$ un esempio di albero binario \`e
 \]
 
 \`E possibile operare su queste strutture con funzioni definite con
-pattern-matching. Per esempio se abbiamo un termine $f$ di tipo $U\rar V\rar V$
+pattern-matching. Per esempio se abbiamo un termine $f$ di tipo $U\rar V \rar V\rar V$
 e un termine iniziale $v$ di tipo $V$, possiamo definire l'iteratore di visita
 anticipata sull'albero $t$ come:
 \[
-    Ivft = tVv(\l n^U l^V r^v. f(f(fl)n)r)
+    Ivft = tVv(\l n^U l^V r^V. f nlr.
 \]
-\deb{spiegare un minimo}
-
+La funzione calcolata da $Ivf$ \`e tale che sull'albero nullo dia risultato $v$,
+e sull'albero con nodo di valore $u$ e sottoalberi sinistro e destro $t_l$ e
+$t_r$ ritorni $f u v_l v_r$, dove $v_l$ e $v_r$ sono i valori calcolati da $Ivf$
+sui due sottoalberi.
 
 Notiamo tuttavia che l'introduzione del sistema F porta con s\`e un difficolt\`a
 nel lavorare per induzione sulla complessit\`a dei termini. Infatti nell'esempio
@@ -1336,7 +1343,7 @@ di candidati.
     $T\sub{\underline{U}}{\underline{X}}$.
 \end{block}
 \begin{proof}
-    Lo facciamo per induzione sulla complessit\`a del tipo $T$. Il caso in cui
+    Lo facciamo per induzione sulla complessit\`a del tipo $T$. Nel caso in cui
     $T$ \`e una variabile individuale, il teorema \`e una tautologia. Il caso in
     cui $T=V\rightarrow W$ lo abbiamo gi\`a fatto. Manca solo il caso in cui
     $T=\Pi Y.W$. 
@@ -1597,6 +1604,9 @@ specie.
     \end{itemize}
 \end{block}
 
+Per fare un esempio sostituendo $\l x. \phi(x,a)$ al posto di $X$ in $\forall y
+X(y)$ otteniamo $\forall y \phi(y,a)$.
+
 A questo punto presentiamo le regole della deduzione naturale per la
 logica del secondo ordine:
 \begin{gather*}
@@ -1631,7 +1641,7 @@ intuizionista del primo ordine si ottiene il sistema per la logica intuizionista
 del secondo ordine.
 
 Notiamo che \`e possibile dimostrare in entrambi i tipi di logica il principio
-di c'omprensione:
+di comprensione:
 \[
     \exists Y\ \forall x\ (\phi(x) \leftrightarrow Y(x)).
 \]
@@ -1647,8 +1657,8 @@ individuali e di relazione). In particolare:
     \item $\exists X \phi = \forall R (\forall X(\phi\rar R)\rar R)$.
 \end{itemize}
     
-Inoltre, nell'ambito della logica intuizionista, anche il $\bot$ \`e superfluo e
-pu\`o essere riscritto come $\bot = \forall X.X$.
+Inoltre, nell'ambito della logica intuizionista, anche il simbolo $\bot$ \`e
+superfluo perch\'e pu\`o essere riscritto come $\bot = \forall X.X$.
 
 \deb{Fare un esempio di dimostrazione?}
 
@@ -1704,11 +1714,17 @@ serve a sostituire lo schema di induzione.
     secondo ordine definiscono l'aritmetica di Heyting del secondo ordine HA2.
 \end{block}
 
+Notiamo che nelle teorie presentate abbiamo omesso l'assioma di induzione (P3).
+Questo perch\'e, attraverso la formula $\tint$ \`e possibile relativizzare ogni
+quantificazione ai termini che la soddisfano. Per esempio una formula $\forall x
+\phi$ pu\`o essere relativizzata con $\forall x (\tint(x)\rar \phi)$.
+
 Utilizzando la quantificazione al secondo ordine \`e anche possibili definire
 dei predicati per la somma e il prodotto (e anche per le funzioni primitive
 ricorsive).
 
-Vale il seguente teorema:
+Un teorema di fondamentale importanza per le discussioni che seguiranno (e di
+cui abbiamo gi\`a utilizzato una versione al primo ordine) \`e:
 \begin{block}[Teorema]
     Le funzioni dimostrabilmente totali in PA2 sono esattamente le funzioni
     dimostrabilmente totali in HA2.
@@ -1717,12 +1733,12 @@ Vale il seguente teorema:
 Per dimostrare il teorema ci appoggeremo alla seguente definizione:
 \begin{block}[Definizione]
     Sia $\phi$ e $\psi$ due formule. Denotiamo con $\phi^\psi$ la formula
-    ottenuta sostituendo ogn sottoformula atomica (compresa $\bot$ quindi)
+    ottenuta sostituendo ogni sottoformula atomica (compresa $\bot$ quindi)
     $\eta$ presente in $\phi$ con $\eta\lor\psi$, assumendo che le variabili
     libere di $\eta$ non siano legate in $\phi$.
 \end{block}
 
-Risulta utile verificare le seguenti proprit\`a per il costrutto appena
+Risulta utile verificare le seguenti propriet\`a per il costrutto appena
 definito.
 \begin{block}[Lemma]
     Per ogni coppia di formule $\phi$ e $\psi$ valgono i seguenti punti:
@@ -1924,9 +1940,9 @@ utilizzati due principi:
         parametrici sono candidati di riducibilit\`a. 
     \item Il principio di induzione.
 \end{itemize}
-Notiamo che tuttavia non \`e nuovamente possibile esprimere la riducibilit\`a in
-modo uniforme su tutti i tipi del sistema F, ma soltanto caso per caso per
-ciascun tipo.
+Notiamo che tuttavia non \`e nuovamente possibile esprimere la riducibilit\`a
+parametrica in modo uniforme su tutti i tipi del sistema F, ma soltanto caso per
+caso per ciascun tipo.
 
 L'obiettivo del resto della sezione \`e quello di dimostrare l'ultima freccia
 del teorema, ovvero la seguente proposizione.
@@ -2091,6 +2107,8 @@ cerchiamo. Verifichiamo quanto detto nella seguente proposizione:
     modello standard e dunque \`e anche dimostrabile.
 \end{proof}
 
+Il seguente lemma \`e un corrispettivo del lemma \deb{XXX} nel caso della
+logica.
 \begin{block}[Lemma]
     Esiste un'unica deduzione normale di $\text{Int} (S^nO)$, ovvero
     $\check{n}$.
@@ -2098,7 +2116,7 @@ cerchiamo. Verifichiamo quanto detto nella seguente proposizione:
 \begin{proof}
     Sia $\delta$ una deduzione normale di $\text{Int} (S^nO)$. Dimostriamo
     come prima cosa che $\delta$ non pu\`o terminare con un'eliminazione,
-    perch\`e partendo da soli assiomi del primo ordine non \`e possibile
+    perch\`e partendo da soli assiomi (del primo ordine) non \`e possibile
     arrivare alla conclusione utilizzando soltanto eliminazioni. Quindi l'ultimo
     passo deve essere l'introduzione del quantificatore universale del secondo
     ordine, a partire da $X(O) \rar \forall x (X(x)\rar X(Sx)) \rar
@@ -2110,10 +2128,19 @@ cerchiamo. Verifichiamo quanto detto nella seguente proposizione:
     \`e nuovamente un'introduzione. Risalendo ancora di un passo, si deve
     dimostrare $X(\overline{n})$ a partire da $X(O)$ e $\forall x (X(x)\rar
     X(Sx))$. Questo non si pu\`o fare con un'introduzione, in quanto la formula
-    da dimostrare \`e atomica. Continuando a ragionare in questo modo si ha il
-    risultato.
+    da dimostrare \`e atomica. Se $\overline{n} = O$, allora abbiamo concluso,
+    in quanto l'ultima formula da dimostrare \`e una delle ipotesi. In caso
+    contrario si deve avere $\overline{n} = S \overline{n-1}$. L'unica
+    eliminazione possibile che termina con $X(S\overline{n-1}$ passa attraverso
+    $X(\overline{n-1}) \rar X(S \overline{n-1}$, che a sua volta deriva da
+    un'eliminazione sull'ipotesi $\forall x(X(x)\rar X(Sx))$. La premessa minore
+    dell'eliminazione dell'implicazione necessita di una dimostrazione della
+    formula $X(\overline{n-1}$ a partire dalle due ipotesi che avevamo e dagli
+    assiomi dell'aritmetica. In realt\`a il ragionamento \`e uguale a quello
+    fatto per $n$, e questo conclude la dimostrazione.
 \end{proof}
 
+Infine concludiamo con la dimostrazione del risultato principale.
 \begin{proof}
     Consideriamo la formula $\phi(x,y)$ che esprime il fatto che dato un
     algoritmo con input $x$ termini con output $y=f(x)$, a meno di una codifica
@@ -2144,11 +2171,9 @@ cerchiamo. Verifichiamo quanto detto nella seguente proposizione:
     $\text{Int}(S^mO)$, la cui traduzione \`e equivalente a $t\overline{n}$. Per
     il lemma \deb{XXX}, tale deduzione ha una forma normale $\check{m}$, per cui
     $t \overline{n}$ si normalizza a $\overline{m}$. Inoltre poich\'e la formula
-    $\phi(S^nO, S^mO)$ \`e dimostrabile in HA2, \deb{essa \`e vera nel modello
-    standard} e quindi $f(n)=m$. Questo conclude la dimostrazione della
+    $\phi(S^nO, S^mO)$ \`e dimostrabile in HA2, essa \`e vera nel modello
+    standard e quindi $f(n)=m$. Questo conclude la dimostrazione della
     proposizione.
 \end{proof}
-
-
 
 \end{document}
