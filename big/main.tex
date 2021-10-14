@@ -2176,4 +2176,34 @@ Infine concludiamo con la dimostrazione del risultato principale.
     proposizione.
 \end{proof}
 
+\subsection{Conseguenze}
+Iniziamo con il presentare una funzione che non \`e rappresentabile nel sistema
+F. Se $m$ \`e un numero naturale che codifica il termine $t$, indichiamo con
+$N(m)$ come la codifica della forma normale di $t$. Inoltre se $m$ codifica $t$
+e $n$ codifica $u$, indichiamo con $A(m, n)$ la codifica dell'applicazione $tu$.
+Inoltre definiamo la funzione $B$ che ad ogni naturale $n$ associa la codifica
+del numerale $\overline{n}$ e definiamo $C$ come la sua funzione inversa. Il
+valore di queste funzioni con argomenti che non sono opportune codifiche non \`e
+importante, e possiamo assumere che sia zero.
+
+Ora consideriamo la funzione
+\[
+    D(n) = C[N(A(n, B(n)))] + 1.
+\]
+Se tutte le funzioni definite sopra sono rappresentabili, anche $D$ \`e
+rappresentabile. Ma ci\`o \`e assurdo. Infatti supponiamo che $t$ sia un termine
+di tipo $\tint\rar\tint$ che rappresenta $D$, e sia $n$ la codifica di $t$. 
+
+Allora $A(n, B(n))$ \`e la codifica di $t\overline{n}$, e $N(A(n, B(n)))$ \`e la
+codifica della sua forma normale. Ma per come \`e definito $t$ si deve avere che
+$t\overline{n} \conv \overline{D(n)}$ e quindi $N(A(n, B(n))) = B(D(n))$.
+Da questo si ottiene $C[N(A(n, B(n)))] = D(n)$, e per la definizione di $D$ si
+ha che $D(n) = D(n)+1$.
+
+Si ottiene dunque che o $D$ o una delle funzioni tra $N$, $A$, $B$ o $C$ non \`e
+rappresentabile. Questo implica che esiste una funzione per cui l'aritmetica di
+Peano (o di Heyting) del secondo ordine non \`e in grado di dimostrare la
+totalit\`a, e dunque tale teoria \`e coerente. Abbiamo dunque dimostrato che la
+normalizzazione forte del sistema F implica la coerenza di PA2.
+
 \end{document}
