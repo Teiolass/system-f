@@ -241,19 +241,17 @@ converte un termine normalizzante.
     v$, allora esiste un quarto termine $w$ tale che $u\conv w$ e $v\conv w$.
 \end{block}
 
-La propriet\`a di essere in forma normale restringe la possibile struttura dei
-termini del $\l$-calcolo.
-
+I termini in forma normale hanno una struttura che presentiamo nel seguente
+teorema:
 \begin{block}[Proposizione]
     Un termine si dice in forma normale di testa se \`e nella forma
     \[
         \l \overline{x}.yu_1\cdots u_n,
     \]
     dove gli $u_i$ sono termini in forma normale e $y$ \`e una variabile (che a
-    priori pu\`o non comparire in $\overline{x}$. Tutti i termini in forma
+    priori pu\`o non comparire in $\overline{x}$). Tutti i termini in forma
     normale sono in forma normale di testa e viceversa.
 \end{block}
-
 \begin{proof}
     Ragioniamo per induzione sulla complessit\`a dei termini. Se un termine \`e
     nella forma $\l x.u$, esso \`e in forma normale se e solo se $u$ \`e in
@@ -266,14 +264,16 @@ termini del $\l$-calcolo.
     un'astrazione. Inoltre $uv$ \`e in forma normale di testa se e solo se $v$
     \`e normale e $u$ \`e in forma normale di testa e non un'astrazione. Per
     ipotesi induttiva, si ha la tesi.
+
+    Infine se il termine \`e una variabile, la tesi \`e banalmente vera.
 \end{proof}
 
 \subsection{Rappresentabilit\`a nel $\lambda$-calcolo non tipato}
 
 Possiamo individuare alcuni termini del $\l$-calcolo per essere messi in
-corrispondenza con i numeri naturali. Tale scelta non \`e unica, ma sicuramente
-\`e conveniente e si presta facilmente ad essere riutilizzata in altre varianti
-del calcolo.
+corrispondenza con i numeri naturali. La scelta che faremo non \`e l'unica, ma
+sicuramente \`e conveniente e si presta facilmente ad essere riutilizzata in
+altre varianti del calcolo.
 
 \begin{block}[Definizione]
     Dato un numero naturale $n$ definiamo il corrispondente numerale
@@ -411,7 +411,7 @@ funzioni rappresentabili \`e anch'essa ridotta.
 Introduciamo come prima cosa la nozione di riducibilit\`a. 
 \begin{block}[Definizione]
     Sia $U$ un tipo, e $t$ un termine di tipo $U$. Definiamo induttivamente il
-    suo insieme di riducibilit\`a $\red{U}$ come:
+    suo insieme di termini riducibili $\red{U}$ come:
     \begin{itemize}
         \item Se $U$ \`e atomico, $t$ \`e riducibile se e solo se \`e fortemente
             normalizzante.
@@ -466,7 +466,7 @@ riducibilit\`a di un termne data quella delle sue conversioni.
     conversioni di $t$, e dunque \`e finito.
 
     Consideriamo adesso il tipo $U\rar V$.  Supponiamo che $t$ sia un riducibile
-    di tale tipo, e supponiamo che $x$ sia una variabile d tipo $U$. Poich\`e
+    di tale tipo, e supponiamo che $x$ sia una variabile di tipo $U$. Poich\`e
     $x$ \`e neutrale e normale, essa \`e riducibile. Allora anche $tx$ \`e
     riducibile, per la definizione di riducibilit\`a sul tipo freccia.
     Osserviamo ora che $\nu(t)\leq \nu(tx)$, infatti ad ogni catena di
@@ -482,8 +482,8 @@ riducibilit\`a di un termne data quella delle sue conversioni.
 
     Supponiamo ora di avere $t$ neutrale per cui tutte le sue conversioni siano
     riducibili. Sia $u$ un riducibile di tipo $U$. L'obiettivo \`e mostrare che
-    $tu$ \`e riducibile. Per l'ipotesi induttiva per $U$, gi\`a sappiamo che $u$
-    \`e fortemente normalizzante, per cui possiamo ragionare per induzione su
+    $tu$ \`e riducibile. Per (CR1) per $U$, gi\`a sappiamo che $u$ \`e
+    fortemente normalizzante, per cui possiamo ragionare per induzione su
     $\nu(u)$. Notiamo che per neutralit\`a di $t$, $tu$ si pu\`o convertire
     soltanto in $t'u$, con $t'$ conversione di $t$, oppure in $tu'$, con $u'$
     conversione di $u$. Nel primo caso sappiamo che $t'$ \`e riducibile, e
@@ -521,7 +521,7 @@ A questo punto dimostriamo un utile lemma:
     Concludiamo per (CR3), che assicura che $\l x.v$ sia dunque riducibile.
 \end{proof}
 
-Adesso si dimostra una versione pi\`u forte del teorema.
+Adesso si dimostra una versione pi\`u forte del teorema principale.
 
 \begin{block}[Proposizione]
     Sia $t$ un termine le cui variabili libere compaiono tra $x_1, \dots, x_n =
@@ -529,13 +529,13 @@ Adesso si dimostra una versione pi\`u forte del teorema.
     \dots, u_n = \underline{u}$ termini riducibili di tipo rispettivamente $U_1,
     \dots, U_n$. Allora il termine $t\sub{\underline{u}}{\underline{x}}$ \`e
     riducibile. Intediamo per $t\sub{\underline{u}}{\underline{x}}$ la
-    sostituzione $t\sub{u_1}P{x_1}\cdots\sub{u_n}P{x_n}$.
+    sostituzione $t\sub{u_1}{x_1}\cdots\sub{u_n}{x_n}$.
 \end{block}
 
 \begin{proof}
     Per induzione sulla complessit\`a di $t$:
     \begin{itemize}
-        \item Se $t=x_i$, allora la tesi \`e una tautologia.
+        \item Se $t=x_i$, allora la tesi \`e banalmente vera.
         \item Se $t=wv$, allora per l'ipotesi induttiva $w\sub{\underline{u}}
             {\underline{x}}$ e $v\sub{\underline{u}} {\underline{x}}$ sono
             riducibili. Ne consegue che $t\sub{\underline{u}}{\underline{x}} =
@@ -622,7 +622,7 @@ rappresentano delle funzioni basilari su di essi.  Vedremo che con queste
 semplici aggiunte il calcolo guadagna una forte potenza espressiva.
 
 Per definire dunque il sistema T, estendiamo la definizione dei tipi e dei
-termnini del $\l$-calcolo tipato semplice. 
+termini del $\l$-calcolo tipato semplice. 
 \begin{block}[Definizione]
     I tipi del sistema T sono definiti induttivamente come:
     \begin{itemize}
@@ -649,7 +649,7 @@ termnini del $\l$-calcolo tipato semplice.
         \item Se $t$ \`e un termine di tipo $\tint$, allora anche $St$ \`e un
             termine di tipo $\tint$.
         \item Se $u$, $v$, e $t$ sono termini rispettivamente di tipo $U$,
-            $U\rar (\tint\rar U)$ e $\tint$, allora $Ruvt$ \`e un termine di
+            $U\rar \tint\rar U$ e $\tint$, allora $Ruvt$ \`e un termine di
             tipo $U$.
     \end{itemize}
 \end{block}
@@ -657,7 +657,7 @@ termnini del $\l$-calcolo tipato semplice.
 Il significato che vorremmo assegnare ai nuovi termini \`e il seguente: il tipo
 $U\times V$ corrisponde al tipo di una coppia formata da un termine $u$ di tipo
 $U$ e un termine $v$ di tipo $V$ in quest'ordine. La coppia \`e rappresentata
-dal termine $\ang{u,v}$; $\pi^1$ e $\pi^1$ sono le proiezioni.  Il termine $O$ e
+dal termine $\ang{u,v}$; $\pi^1$ e $\pi^2$ sono le proiezioni.  Il termine $O$ e
 il simbolo $S$ rappresentano rispettivamente lo zero e la funzione di
 successore, e pertanto scriveremo il numerale relativo a $n$ come $S^nO$.
 Inoltre $R$ \`e l'operatore di ricorsione primitiva, per cui $Ruv(St) =
@@ -743,7 +743,7 @@ estendere la dimostrazione.
     \pi^1 t_k$. Ne consegue che $\nu(t)$ \`e finito e questo dimostra (CR1).
 
     Per (CR2) osserviamo che se $t$ e $t'$ sono termini per cui $t \conv t'$,
-    allora $\pi^1 t \conv \pi^1 t'$ e allora $\pi^2 t \conv \pi^2 t'$. Se $t$
+    allora $\pi^1 t \conv \pi^1 t'$ e $\pi^2 t \conv \pi^2 t'$. Quindi see $t$
     \`e riducibile, allora lo sono anche le sue proiezioni e quindi, per ipotesi
     induttiva, lo sono anche le riduzioni delle proiezioni. Poich\`e $t'$ ha
     entrambe le proiezioni riducibili, \`e anch'esso riducibile.
@@ -849,7 +849,7 @@ sistema T di G\"odel, mostriamo qualche esempio di funzione rappresentabile.
 
 La somma pu\`o essere rappresentata dal termine
 \[
-    A = \l p^\tint q\tint. Rp (\l x^\tint y^\tint. Sx) q.
+    A = \l p^\tint q^\tint. Rp (\l x^\tint y^\tint. Sx) q.
 \]
 Infatti vediamo che soddisfa la definizione ricorsiva della somma:
 \begin{gather*}
@@ -893,6 +893,9 @@ per tale studio:
     e solo se $f(n)=m$ e $T\vdash \forall n\ \exists m\ \phi(n,m)$.
 \end{block}
 
+Notiamo che nel caso delle funzioni calcolabili, una tale formula $\Sigma^0_1$
+esiste sempre, e si pu\`o costruire tramite la funzione universale di Kleene.
+
 Lo scopo del resto della sezione \`e quello di dimostrare il seguente teorema:
 
 \begin{block}[Teorema]
@@ -908,25 +911,26 @@ la racchiudiamo nella prossima proposizione.
     nell'aritmetica di Peano.
 \end{block}
 \begin{proof}
-    Supponendo che esista un termine $t$, di tipo $\tint\rar\tint$ per cui
+    Supponendo che esista un termine $t$ di tipo $\tint\rar\tint$ per cui
     $t\overline{n}$ si riduce a $\overline{m}$ ogniqualvolta valga $m = f(n)$,
     per dimostrare che $f$ \`e totale basta dimostrare che $t\overline{n}$ sia
     fortemente normalizzante per ogni naturale $n$. A meno di codificare i
     termini del calcolo con opportuni numeri naturali, detti numeri di G\"odel,
     per cui i predicati di conversione siano primitivi ricorsivi, possiamo
-    sfruttare la dimostrazione della sezione precedente. Infatti per ogni tipo,
-    possiamo trovare un predicato che esprima la riducibilit\`a dei termini di
-    tale tipo (lo si pu\`o fare induttivamente sulla complessit\`a dei tipi), e
-    poi ragionare con tutte le induzioni che abbiamo gi\`a mostrato. Notiamo che
-    tuttavia non \`e possibile trovare una formula che esprima uniformemente la
-    riducibili\`a di tutti i termini del sistema T. Per esprimere tali insiemi
-    occorre fare uso di una quantificazione del secondo ordine, che ovviamente
-    non \`e presente nelle aritmetiche del primo ordine.
+    sfruttare la dimostrazione della normalizzazione forte della sezione
+    precedente. Infatti per ogni tipo, possiamo trovare un predicato che esprima
+    la riducibilit\`a dei termini di tale tipo (lo si pu\`o fare induttivamente
+    sulla complessit\`a dei tipi), e poi ragionare con tutte le induzioni che
+    abbiamo gi\`a mostrato. Notiamo che tuttavia non \`e possibile trovare una
+    formula che esprima uniformemente la riducibilit\`a di tutti i termini del
+    sistema T. Per esprimere tali insiemi occorre fare uso di una
+    quantificazione del secondo ordine, che ovviamente non \`e presente nelle
+    aritmetiche del primo ordine.
 \end{proof}
 
 Per mostrare l'altra implicazione, estentendiamo i tipi del sistema T con un
-nuovo tipo $\one$ e con un termine $\i$ di tipo $\one$. Per ogni tipo $U$ di
-questo sistema esteso definiamo un tipo $|U|$ che sia o uguale a $\one$ o tale
+nuovo tipo $\one$ e con un termine $\i$ di tipo $\one$. Ad ogni tipo $U$ di
+questo sistema esteso associamo un tipo $|U|$ che sia o uguale a $\one$ o tale
 che $\one$ non vi compaia. Il tipo $|U|$ \`e definito induttivamente con le
 seguenti regole:
 \begin{itemize}
@@ -942,7 +946,7 @@ seguenti regole:
 \end{itemize}
 
 Definiamo inoltre una mappa $\flat$ dalle formule dell'aritmetica (scritte senza
-la congiunzione) ai tipi del sistema T esteso come segue:
+la disgiunzione) ai tipi del sistema T esteso come segue:
 \begin{align*}
     \flat(\bot) &=\one;\\
     \flat(s=t) &= \one;\\
@@ -960,7 +964,7 @@ riscriverebbe come $\exists x\ (\text{int}(x) \land \phi)$, dove $\text{int}$
 esprime il predicato di appartenenza ai numeri naturali.
 
 Definiamo ora la realizzabilit\`a. Si dice che un termine chiuso uguale a $\i$ o
-n cui $\i$ non compare $M$ di tipo $\flat(\phi)$ realizza una formula chiusa
+in cui $\i$ non compare $M$ di tipo $\flat(\phi)$ realizza una formula chiusa
 $\phi$ nelle seguenti situazioni:
 \begin{itemize}
     \item $M=\i$ e $\phi$ \`e la formula $s=t$ e $s$ e $t$ rappresentano lo
@@ -976,12 +980,12 @@ $\phi$ nelle seguenti situazioni:
         $\eta$ per tutti i termini $N$ che realizzano $\psi$.
 \end{itemize}
 
-Notiamo che non esiste alcun termine che realizzi $\bot$.
-
 Diciamo inoltre che $M$ realizza un giudizio $\Gamma \vdash\phi$ con
 $\Gamma=\setof{\gamma_1,\dots,\gamma_n}$ se $M$ realizza la formula
 $\gamma_1\rar\cdots\rar\gamma_n\rar \phi$. Una formula si dice realizzabile se
 esiste un termine che la realizza.
+
+Notiamo che non esiste alcun termine che realizzi $\bot$.
 
 Dimostriamo ora il seguente importante teorema:
 \begin{block}[Teorema]
@@ -1082,9 +1086,9 @@ detta sistema F. Essa mantiene e anzi estende l'espressivit\`a del sistema T di
 G\"odel e allo stesso tempo evita soluzioni ad hoc come l'inserimento esplicito
 fra i tipi di un tipo $\tint$. Nel sistema F vedremo che esiste comunque un tipo
 corrispondente ai numeri naturali, ma la sua costruzione \`e assai pi\`u
-generale, e permette, fra le tante cose, di definire tipi coppia e tipi unione
-oppure tipi corrispondenti a liste o alberi. La chiave per fare questo \`e
-l'introduzione di una quantificazione sui tipi.
+generale Il sistema permette anche, fra le tante cose, di definire tipi coppia e
+tipi unione oppure tipi corrispondenti a liste o alberi. La chiave per fare
+questo \`e l'introduzione di una quantificazione sui tipi.
 
 \begin{block}[Definizione]
     I tipi del sistema F sono definiti induttivamente come:
@@ -1099,7 +1103,8 @@ l'introduzione di una quantificazione sui tipi.
 
 Avendo una sorta di quantificazione \`e utile avere anche la distinzione tra
 occorrenze libere e legate di variabili di tipo. Un'occorrenza di una variabile
-di tipo $X$ \`e legata se $X$ compare in un tipo nella forma $\P X. U$.
+di tipo $X$ \`e legata se $X$ compare in una porzione del tipo nella forma $\P
+X. U$.
 
 \begin{block}[Definizione]
     I termini del sistema F si definiscono induttivamente come:
@@ -1213,7 +1218,7 @@ I due costruttori sono rappresentati dai termini:
 
 Se $u_1, u_2,\dots$ sono termini di tipo $U$ un esempio di albero binario \`e 
 \[
-    Ru_1(Ru_2(Ru_4)E)(Ru_3EE).
+    Ru_1(Ru_2(Ru_4EE)E)(Ru_3EE).
 \]
 
 \`E possibile operare su queste strutture con funzioni definite con
@@ -1260,7 +1265,7 @@ semplice con i nuovi casi introdotti nel sistema F.
 A questo punto possiamo definire i candidati di riducibilit\`a. Essi sono
 insiemi di termini di uno stesso tipo per cui valgono le tre propriet\`a che
 avevamo dimostrato valere per i riducibili. L'idea quindi \`e quella di
-costruire degli ulteriori insieme di termini detti riducibili parametrici, la
+costruire degli ulteriori insiemi di termini detti riducibili parametrici, la
 cui costruzione induttiva sui tipi atomici e sui tipi freccia corrisponde a
 quella data per i riducibili nel tipato semplice, e sui tipi della forma $\L
 X.V$ corrisponde alla proposta fatta sopra, per\`o utilizzando come parametri,
@@ -1366,8 +1371,8 @@ di candidati.
     riducibile parametrico, e quindi si ha la tesi.
 \end{proof}
 
-Il prossimo lemma \`e utile per studiare il comportamento delle riducibilit\`a
-parametrica rispetto alle instaziazioni. Una cosa da notare \`e che affinch\`e
+Il prossimo lemma \`e utile per studiare il comportamento della riducibilit\`a
+parametrica rispetto alle instanziazioni. Una cosa da notare \`e che affinch\`e
 abbia senso il predicato $\red{T}\subrx \sub{\red{V}\subrx}{Y}$, occorre che
 $\red{V}\subrx$ non sia soltanto un predicato, ma anche un effettivo insieme.
 Notiamo anche che il principio di estensione ci permette di passare da predicati
@@ -1390,7 +1395,7 @@ a insiemi senza problemi.
     Se invece $T=Y$ si ha che
     \[
         \red{T\sub{V}{Y}}\subrx = \red{V}\subrx = \red{Y}\subrx\sub{
-            \sub{V}\subrx}{Y}.
+            \red{V}\subrx}{Y}.
     \]
 
     Consideriamo ora il caso in cui $T=U\rightarrow W$. Vale che
@@ -1424,12 +1429,12 @@ I seguenti due teoremi sono gli equivalenti per questa dimostrazione dei lemmi
 \begin{proof}
     Dimostriamo per induzione su $\nu(w)$ che tutte le conversioni in uno step
     di $(\Lambda Y.w)V$ sono in $\red{W} \subrx\sub{\can{S}}{Y}$. Una
-    conversione di tali conversioni possono essere soltanto di due forme.  La
+    conversione di tali conversioni pu\`o essere soltanto di due forme.  La
     prima \`e $(\Lambda Y.w')V$, con $w'$ una conversione di $w$. Ma allora
     $\nu(w')<\nu(w)$ e si usa l'ipotesi induttiva. La seconda forma \`e del tipo
     $w\sub{V}{Y}$, e questa \`e riducibile parametrico per ipotesi del lemma. 
 
-    Allora la dimstrazione si conclude per (CR3).
+    Allora la dimostrazione si conclude per (CR3).
 \end{proof}
 \end{block}
 
@@ -1509,7 +1514,7 @@ forte per il sistema F.
     Tutti i termini del sistema F sono riducibili.
 \begin{proof}
     Basta usare la proposizione precedente e prendere $\can{R}_i=\can{SN}_i$ e
-    $u_i=x_i$.
+    $u_i=x_i$ e concludere per (CR1).
 \end{proof}
 \end{block}
 
@@ -1523,7 +1528,7 @@ forte per il sistema F.
 \begin{block}[Definizione]
     Il linguaggio per la logica del secondo ordine \`e lo stesso di quello del
     primo ordine con l'aggiunta per ogni naturale $n$ di un insieme numerabile
-    di simboli $X_k^n$, che chiameremo variabili di relazione.  
+    di simboli $X_k^n$ con $k\in\N$, che chiameremo variabili di relazione.  
     
     Le formule atomiche sul linguaggio $L$ sono $\bot$, espressioni della forma
     $X^n(t_1, \dots, t_n)$, dove i $t_i$ sono termini del linguaggio, oppure
@@ -1548,8 +1553,8 @@ formula:
 \begin{block}[Definizione]
     \begin{itemize} 
         \item Le variabili libere di $X(t_1, \dots, t_n)$ con $X$ variabile di
-            relazione $n$-aria, sono l'unione di tutte le variabili libere che
-            compaiono nei termini $t_i$ per ogni $i$ e $X$.
+            relazione $n$-aria, sono $X$ e l'unione di tutte le variabili libere
+            che compaiono nei termini $t_i$ per ogni $i$.
         \item Le variabili libere di $r(t_1, \dots, t_n)$ con $r$ simbolo d
             relazione $n$-aria sono l'unione di tutte le variabili libere che
             compaiono nei termini $t_i$ per ogni $i$.
@@ -1677,8 +1682,8 @@ le proposizioni derivabili dalla logica intuizionista e la logica classica.
     \end{itemize}
 \end{block}
 
-A questo punto possiamo dare il seguente risultato, che mette in relazione la
-logica intuizionista con quella classica:
+A questo punto possiamo enunciare il seguente risultato, che mette in relazione
+la logica intuizionista con quella classica:
 \begin{block}[Proposizione]
     La proposizione $\phi$ \`e un teorema della logica classica se e solo se
     $k(\phi)$ \`e un teorema della logica intuizionista.
@@ -1708,7 +1713,7 @@ dove $\text{Int}(a) = \forall X(\forall b (X(b)\rar X(Sb)) \rar X(0) \rar X(a))$
 serve a sostituire lo schema di induzione.
 
 \begin{block}[Definizione]
-    Gli assiomi (U1-4) e (P1-3) utilizzati con il sistema della logica classica
+    Gli assiomi (U1-4) e (P1-2) utilizzati con il sistema della logica classica
     del secondo ordine definiscono l'aritmetica di peano del secondo ordine PA2.
     Quando invece sono utilizzati con il sistema della logica intuizionista del
     secondo ordine definiscono l'aritmetica di Heyting del secondo ordine HA2.
@@ -2206,4 +2211,6 @@ Peano (o di Heyting) del secondo ordine non \`e in grado di dimostrare la
 totalit\`a, e dunque tale teoria \`e coerente. Abbiamo dunque dimostrato che la
 normalizzazione forte del sistema F implica la coerenza di PA2.
 
+Otteniamo come risultato che la normalizzazione forte del sistema F \`e
+indipendente dagli assiomi di Peano del secondo ordine.
 \end{document}
