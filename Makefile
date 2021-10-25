@@ -5,7 +5,7 @@ strong-norm.pdf: marticle.cls mstyle.sty strong-norm/first.tex
 	pdflatex strong-norm/first.tex
 	mv first.pdf strong-norm.pdf
 
-wholenorm: marticle.cls mstyle.sty first.tex
+wholenorm: marticle.cls mstyle.sty strong-norm/first.tex
 	pdflatex strong-norm/first.tex
 	pdflatex strong-norm/first.tex
 	pdflatex strong-norm/first.tex
@@ -19,7 +19,7 @@ big.pdf: marticle.cls mstyle.sty big/main.tex
 abst.pdf: marticle.cls mstyle.sty abs.tex
 	pdflatex abs.tex
 
-wholebig: marticle.cls mstyle.sty first.tex
+wholebig: marticle.cls mstyle.sty big/main.tex
 	pdflatex big/main.tex
 	pdflatex big/main.tex
 	pdflatex big/main.tex
