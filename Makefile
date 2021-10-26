@@ -1,4 +1,4 @@
-all: strong-norm.pdf big.pdf abst.pdf
+all: strong-norm.pdf big.pdf abst.pdf tesi
 whole: wholenorm wholebig
 
 strong-norm.pdf: marticle.cls mstyle.sty strong-norm/first.tex
@@ -25,3 +25,5 @@ wholebig: marticle.cls mstyle.sty big/main.tex
 	pdflatex big/main.tex
 	mv main.pdf big.pdf
 
+tesi: wholebig big/Frontespizio_logo.pdf
+	pdfunite big/Frontespizio_logo.pdf big.pdf tesi_marchetti.pdf

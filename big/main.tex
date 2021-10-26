@@ -7,7 +7,8 @@ Polimorfico}}
 
 
 \begin{document}
-\maketitle
+\tableofcontents
+\newpage
 
 \section{Introduzione}
 
@@ -101,8 +102,8 @@ faremo uso nelle sezioni successive.
 
     Una dimostrazione di un giudizio $\Gamma\vdash \phi$ \`e una successione di
     giudizi $\Gamma_i\vdash \phi_i$ con $i=1,\vdash,n$ tale $\Gamma_n=\Gamma$ e
-    $\phi_n=\phi$ e inoltre per ogni $i$ l'$i$-esimo giudizio \`e un'istanza di
-    (Ax), o esiste $j<i$ tale che
+    $\phi_n=\phi$ e inoltre per ogni $i$ l'$i$-esimo giudizio \`e un'istanza
+    della regola (Ax), o esiste $j<i$ tale che
     \[
         \begin{prooftree}
             \hypo{\Gamma_j\vdash\phi_j}
@@ -118,8 +119,8 @@ faremo uso nelle sezioni successive.
             \infer2{\Gamma_i\vdash\phi_i}
         \end{prooftree}
     \]
-    sia un'istanza delle regole. Elenchiamo in seguito alcune della regole per
-    la deduzione naturale:
+    sia un'istanza delle regole oppure un fatto equivalente con tre ipotesi.
+    Elenchiamo in seguito alcune della regole per la deduzione naturale:
 
     \begin{gather*}
         \begin{prooftree}
@@ -182,8 +183,7 @@ faremo uso nelle sezioni successive.
         \hspace{1cm}
         \begin{prooftree}
             \hypo{\Gamma\vdash \forall x \phi}
-            \hypo{\Gamma\vdash \phi}
-            \infer2[$\forall$E]{\Gamma\vdash\phi\sub{a}{x}}
+            \infer1[$\forall$E]{\Gamma\vdash\phi\sub{a}{x}}
         \end{prooftree}
         \\
         \\
@@ -195,7 +195,7 @@ faremo uso nelle sezioni successive.
         \begin{prooftree}
             \hypo{\Gamma\vdash \exists x \phi}
             \hypo{\Gamma,\phi\vdash \psi}
-            \infer2[$\forall$E]{\Gamma\vdash\psi}
+            \infer2[$\exists$E]{\Gamma\vdash\psi}
         \end{prooftree}
         \text{\ ($x$ non libera in $\Gamma$ n\`e in $\psi$)}
     \end{gather*}
@@ -265,7 +265,7 @@ l'aritmetica di Hayting. Presentiamo un risultato che torner\`a utile e che
 approfondiremo nel caso della logica e delle aritmetiche del secondo ordine:
 
 \begin{block}[Teorema]
-    Una formula $\Pi^0_2$ \`e dimostrabile nell'aritmetica di Heyting se e solo
+    Una formula $\Pi^0_2$ \`e dimostrabile nell'aritmetica di Hayting se e solo
     se \`e dimostrabile nell'aritmetica di Peano.
 \end{block}
 
@@ -276,7 +276,7 @@ $\lnot (\lnot\phi \land \lnot \psi)$. Ovvero ogni formula del primo sistema \`e
 dimostrabile se e solo se la formula ottenuta traducendo tutte le occorrenze di
 $\lor$ \`e dimostrabile nel secondo sistema.
 
-\`E vero anche un fatto simile per l'aritmetica di Heyting, che per\`o sfrutta
+\`E vero anche un fatto simile per l'aritmetica di Hayting, che per\`o sfrutta
 per intero gli assiomi. Infatti in tale sistema $\phi\lor\psi$ \`e equivalente a
 \[
     \exists x ((x=0 \rar \phi) \land (\lnot (a=0)\rar\psi)).
@@ -438,6 +438,10 @@ le proposizioni derivabili dalla logica intuizionista e la logica classica.
             quantificazione universale del secondo ordine.
     \end{itemize}
 \end{block}
+
+Notiamo che se vale il principio del terzo escluso per una certa formula $\phi$,
+ovvero se \`e possibile dimostrare che $\phi\lor\lnot\phi$, allora si pu\`o
+dimostrare che $k(\phi)\leftrightarrow\phi$.
 
 A questo punto possiamo enunciare il seguente risultato, che mette in relazione
 la logica intuizionista con quella classica:
@@ -644,7 +648,7 @@ Infine dimostriamo una proposizione pi\`u forte del teorema.
     ovvero la tesi, in quanto $\eta\lor\psi\rar \psi$ \`e una tautologia.
 \end{proof}
 
-\section{Il $\lambda$-calcolo non tipato}
+\section{Il $\lambda$-calcolo Non Tipato}
 
 In questa tesi ci occuperemo di studiare alcune propriet\`a di diversi tipi
 di $\lambda$-calcoli. Iniziamo dunque definendo gli elementi fondamentali del
@@ -859,7 +863,7 @@ teorema:
     Infine se il termine \`e una variabile, la tesi \`e banalmente vera.
 \end{proof}
 
-\subsection{Rappresentabilit\`a nel $\lambda$-calcolo non tipato}
+\subsection{Rappresentabilit\`a nel $\lambda$-calcolo Non Tipato}
 
 Possiamo individuare alcuni termini del $\l$-calcolo per essere messi in
 corrispondenza con i numeri naturali. La scelta che faremo non \`e l'unica, ma
@@ -920,7 +924,7 @@ essere normalizzante.  Infatti se indichiamo con $t'$ la forma normale di $tx$,
 dove $x$ \`e una variabile, vale che $t' = xt'$, modulo la $\beta$-conversione.
 Ma entrambi questi termini sono in forma normale, e dunque abbiamo l'assurdo.
 
-\section{Il $\l$-calcolo tipato semplice}
+\section{Il $\l$-calcolo Tipato Semplice}
 
 Nel $\l$-calcolo non tipato, esistono termini per cui la normalizzazione non
 corrisponde all'idea intuitiva di ``semplificazione'', come nell'esempio
@@ -1717,10 +1721,11 @@ A questo punto possiamo concludere la dimostrazione del teorema principale.
     \overline{n}, \overline{m})$ \`e una formula vera, e quindi $f(n)=m$.
 \end{proof}
 
-\section{Il sistema F}
+\section{Il Sistema F}
 
 In questa sezione introduciamo un'ulteriore variante del $\l$-calcolo tipato
-detta sistema F. Essa mantiene e anzi estende l'espressivit\`a del sistema T di
+detta sistema F, o $\l$-calcolo polimorfico oppure $\l$-calcolo tipato del
+secondo ordine. Essa mantiene e anzi estende l'espressivit\`a del sistema T di
 G\"odel e allo stesso tempo evita soluzioni ad hoc come l'inserimento esplicito
 fra i tipi di un tipo $\tint$. Nel sistema F vedremo che esiste comunque un tipo
 corrispondente ai numeri naturali, ma la sua costruzione \`e assai pi\`u
@@ -2405,10 +2410,10 @@ Essa pu\`o essere normalizzata alla semplice
 \]
 
 Questo corrisponde a quanto accade alle relative traduzioni: $(\l x^{\cod{\phi}}.
-\cod{\epsilon})\cod{\eta}$ si riduce al termine
+\cod{\epsilon})\cod{\delta}$ si riduce al termine
 $\cod{\epsilon}\sub{\cod{\delta}}{x}$. Si pu\`o interpretare $\l x^{\cod{\phi}}.
-\cod{\epsilon}$ come un termine che prende una dimostrazione di $\phi$ e tramite
-$\epsilon$ dimostra $\psi$.
+\cod{\epsilon}$ come un termine che prende una dimostrazione $x$ di $\phi$ e
+tramite $\epsilon$ dimostra $\psi$.
 
 Occorre notare per\`o che la definizione precedente nasconde una difficolt\`a:
 infatti non esiste alcun termine chiuso che pu\`o tradurre l'assioma $\forall x
@@ -2540,7 +2545,7 @@ ha che $D(n) = D(n)+1$.
 Si ottiene dunque che o $D$ o una delle funzioni tra $N$, $A$, $B$ o $C$ non \`e
 rappresentabile. Per le codifiche pi\`u naturali dei termini si ha che $A$, $B$
 e $C$ sono rappresentabili, dunque il problema \`e su $N$. Eppure \`e possibile
-trovare una formula che esprima la normalizzazione.
+trovare una formula che esprima il grafico della funzione di normalizzazione.
 Questo implica che esiste una funzione per cui l'aritmetica di
 Peano (o di Heyting) del secondo ordine non \`e in grado di dimostrare la
 totalit\`a, e dunque tale teoria \`e coerente. Abbiamo dunque dimostrato che la
@@ -2548,7 +2553,7 @@ normalizzazione forte del sistema F implica la coerenza di PA2.
 
 Il ragionamente appena fatto pu\`o essere formalizzato nell'aritmetica di Peano,
 e pertanto una dimostrazione della normalizzazione forte in tale sistema
-porterebbe a una dimostrazione di coerenza.  Otteniamo come risultato, per il
+porterebbe a una dimostrazione di coerenza. Otteniamo come risultato, per il
 secondo teorema di G\"odel che la normalizzazione forte del sistema F \`e
 indipendente dagli assiomi di Peano del secondo ordine.
 
@@ -2556,27 +2561,32 @@ indipendente dagli assiomi di Peano del secondo ordine.
 \begin{thebibliography}{0}
 \bibitem{girard} 
     J. Girard, P. Taylor, Y. Lafont.
-    \textit{Proofs and Types}, 1990.
+    \textit{Proofs and Types},
+    Cambridge University Press,
+    1990.
 
 \bibitem{baren}
     H. P. Barendregt.
     \textit{Lambda Calculus, Its Syntax and Semantics},
-    1998.
+    Elsevier Science B.V.,
+    1984.
 
 \bibitem{sorensen}
     M. H. S{\o}rensen, P. Urzyczyn.
     \textit{Lectures on the Curry-Howard Isomorphism},
+    Elsevier Science B.V.,
     2006.
 
 \bibitem{fortune}
     S. Fortune, D. Leivant, M. O'Donnel.
     \textit{The Expressiveness of Simple and Second-Order Type Structures},
-    1983.
+    Journal of the Association for Computer Machinery, Vol 30, No 1, January
+        1983, pp. 151-185.
 
 \bibitem{krivine}
     J. Krivine.
-    \textit{Lambda-calculus, type and model},
-    2002.
+    \textit{Lambda-calculus, types and models},
+    DEA, Université Paris 7, 2002, pp.208..
 
 \end{thebibliography}
 \end{document}
