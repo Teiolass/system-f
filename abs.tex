@@ -1,0 +1,67 @@
+\documentclass[]{marticle}
+\usepackage{mstyle}
+
+\title{\textbf{\huge Rappresentabilit\`a di Funzioni nel Lambda-calcolo
+Polimorfico}}
+\date{}
+\author{}
+
+
+\begin{document}
+\maketitle
+
+\textbf{Candidato:} Alessio Marchetti
+
+\textbf{Relatori:} Alessandro Berarducci, Marcello Mamino
+
+\vspace{0.4cm}
+
+Il $\l$-calcolo \`e un sistema formale sviluppato negli anni '30 da Alonzo
+Church. Lo scopo originario era quello di fondare la matematica, e non \`e stato
+raggiunto in quanto il sistema si rivel\`o inconsistente, come dimostrato da
+Kleene e Rosser nel 1936. Un sottoinsieme di tale sistema si \`e comunque
+sviluppato per la sua capacit\`a di esprimere computazioni mediante astrazione
+su variabili e sostituzione. Lo studio del $\l$-calcolo \`e dunque lo studio di
+entit\`a dette $\l$-termini che svolgono allo stesso tempo il ruolo di programmi
+e di dati su cui i programmi lavorano. Sui termini si considerer\`a una
+relazione di ordine, detta riduzione, che rappresenta l'esecuzione dei
+programmi. All'interno del $\l$-calcolo, con opportune codifiche, \`e possibile
+rappresentare i numeri naturali e tutte le funzioni calcolabili. Poich\`e
+l'insieme delle funzioni calcolabili totali non \`e ricorsivamente enumerabile
+esistono dei termini la cui computazione non termina (diremo che non sono
+normalizzanti).
+
+Il $\l$-calcolo tipato \`e una variante del $\l$-calcolo in cui ad ogni termine
+\`e associata un'entit\`a sintattica detta tipo. Esso ha origine nei lavori di
+Haskell Curry (1934) e di Church (1940).  La riduzione in questo caso \`e
+ridefinita aggiungendo vincoli sul come \`e possibile comporre i termini in base
+al loro tipo, e in particolare rende chiara la classe di dati su cui ciascun
+programma pu\`o operare.  Come conseguenza si pu\`o dimostrare che questa
+variante ha la propriet\`a di normalizzazione, ovvero tutte le computazioni
+terminano e tutti i termini sono normalizzanti. I tipi sono studiati anche in
+ambito informatico per la verifica in modo automatico della presenza di alcuni
+errori che dovrebbero essere altrimenti cercati a mano dal programmatore.
+
+In questa tesi ci occuperemo di una variante del calcolo detta sistema F, anche
+nota come $\l$-calcolo polimorfico o $\l$-calcolo del secondo ordine. Essa \`e
+stata sviluppata dal logico Jean-Yves Girard (1972) e dall'informatico John
+Charles Reynolds (1974). Il sistema F \`e essenzialmente una variante del
+$\l$-calcolo tipato in cui viene aggiunta una quantificazione universale sui
+tipi.
+
+Anche per il sistema F vale la propriet\`a di normalizzazione. Troveremo dunque
+che le funzioni rappresentabili nel sistema F sono solo un sottoinsieme delle
+funzioni calcolabili totali, e ne daremo una caratterizzazione pi\`u precisa:
+esse sono esattamente le funzioni di cui l'aritmetica di Heyting del secondo
+ordine dimostra la totalit\`a.  Mostreremo quindi un esempio di funzione non
+rappresentabile nel sistema F e dedurremo dunque la consistenza dell'aritmetica
+di Peano del secondo ordine a partire dal risultato di normalizzazione.
+
+Metteremo inoltre tale risultato a confronto con un risultato equivalente su
+un'altra variante del $\l$-calcolo, detta sistema T di G\"odel, per cui vale
+ugualmente la propriet\`a di normalizzazione. Nel sistema T infatti le funzioni
+rappresentabili sono esattamente quelle che l'aritmetica di Heyting del primo
+ordine dimostra essere totali.
+
+\end{document}
+
